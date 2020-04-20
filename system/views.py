@@ -24,7 +24,7 @@ def car_list(request):
                      Q(car_name__icontains=query) |
                      Q(company_name__icontains = query) |
                      Q(num_of_seats__icontains=query) |
-                     Q(cost_par_day__icontains=query)
+                     Q(cost_per_day__icontains=query)
                             )
 
     # pagination
@@ -252,7 +252,7 @@ def newcar(request):
             Q(car_name__icontains=query) |
             Q(company_name__icontains=query) |
             Q(num_of_seats__icontains=query) |
-            Q(cost_par_day__icontains=query)
+            Q(cost_per_day__icontains=query)
         )
 
     # pagination
@@ -290,7 +290,7 @@ def popular_car(request):
             Q(car_name__icontains=query) |
             Q(company_name__icontains=query) |
             Q(num_of_seats__icontains=query) |
-            Q(cost_par_day__icontains=query)
+            Q(cost_per_day__icontains=query)
         )
 
     # pagination
@@ -334,7 +334,7 @@ def admin_car_list(request):
             Q(car_name__icontains=query) |
             Q(company_name__icontains=query) |
             Q(num_of_seats__icontains=query) |
-            Q(cost_par_day__icontains=query)
+            Q(cost_per_day__icontains=query)
         )
 
     # pagination
