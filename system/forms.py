@@ -9,11 +9,17 @@ class CarForm(forms.ModelForm):
         fields = [
             "image",
             "car_name",
-            "company_name",
+            "car_type",
+            "model",
+            "reg_tag",
             "num_of_seats",
-            "cost_par_day",
-            "content",
+            "cur_milage",
+            "last_serv",
+            "cost_per_day",
+            "vehicle_cond",
+            "rent_loc",
         ]
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -39,6 +45,8 @@ class LocationForm(forms.ModelForm):
         model = Location
         fields = [
             "loc_name",
+            "loc_zip",
+            "loc_id",
             "address",
             "vehicle_cap",
         ]
