@@ -61,5 +61,23 @@ class UserDetails(models.Model):
     def __str__(self):
         return self.first_name
 
+class start_subscription(models.Model):
+
+    start_date = models.DateField()
+    payment_type = models.CharField(max_length=10)
+    credit_card_number = models.IntegerField()
+    credit_card_name = models.CharField(max_length=30)
+    expiry_date = models.DateField()
+    cvv = models.IntegerField()
+
+
+    def __str__(self):
+        return self.credit_card_number
+
+
+
+
+
+
  #   def get_absolute_url(self):
   #      return "/car/detail/%s/" % (self.id)

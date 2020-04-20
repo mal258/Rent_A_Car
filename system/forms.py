@@ -1,10 +1,7 @@
 from django import forms
-from .models import Car, Order, PrivateMsg, Location, UserDetails
+from .models import Car, Order, PrivateMsg, Location, UserDetails, start_subscription
 
-LOCATION_CHOICES= [
-    ('view'),
-    ('add'),
-    ]
+LOCATION_CHOICES= [('view'),('add'),]
 
 class CarForm(forms.ModelForm):
     class Meta:
@@ -57,4 +54,17 @@ class UserDetail(forms.ModelForm):
             "address",
             "license_number",
             "license_place",
+        ]
+class StartSubcription(forms.ModelForm):
+    # start_date =forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    # widget = {
+    #     'start_date':forms.TextInput(attrs={'class':'datepicker'})}
+    class Meta:
+        model = start_subscription
+        fields = ["start_date",
+            "payment_type",
+                  "credit_card_number",
+                  "credit_card_name",
+                  "expiry_date",
+                  "cvv",
         ]

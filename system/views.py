@@ -3,8 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 
-from .models import Car, Order, PrivateMsg, Location, UserDetails
-from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail
+from .models import Car, Order, PrivateMsg, Location, UserDetails,start_subscription
+from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 
 
 
@@ -159,6 +159,23 @@ def customer_created(request):
         "title": "Primary Details"
     }
     return render(request, 'customer_details.html', context)
+
+# Subscription begin
+
+def start_subscription(request):
+    form = StartSubcription(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect("/")
+
+    context = {
+        "form": form,
+        "title": "start subscription"
+    }
+    return render(request, 'customer_details.html', context)
+
+
 #order
 
 def order_list(request):
