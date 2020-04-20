@@ -152,7 +152,7 @@ def customer_created(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/car/newcar/")
 
     context = {
         "form": form,
@@ -167,7 +167,7 @@ def start_subscription(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/car/newcar/")
 
     context = {
         "form": form,
