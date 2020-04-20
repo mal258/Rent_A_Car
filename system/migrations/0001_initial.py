@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('car_name', models.CharField(max_length=100)),
                 ('company_name', models.CharField(max_length=100)),
                 ('num_of_seats', models.IntegerField()),
-                ('cost_par_day', models.CharField(max_length=50)),
+                ('cost_per_day', models.CharField(max_length=50)),
                 ('content', models.TextField()),
                 ('like', models.IntegerField(default=0)),
             ],
