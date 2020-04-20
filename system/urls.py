@@ -18,9 +18,7 @@ urlpatterns = [
 
     url(r'^(?P<id>\d+)/delete/$', views.car_delete, name = "car_delete"),
     url(r'^(?P<id>\d+)/deleteOrder/$', views.order_delete, name = "order_delete"),
-
     url(r'^contact/$', views.contact, name = "contact"),
-
     url(r'^newcar/$', views.newcar, name = "newcar"),
     url(r'^(?P<id>\d+)/like/$', views.like_update, name = "like"),
     url(r'^popularcar/$', views.popular_car, name = "popularcar"),

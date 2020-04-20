@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car, Order, PrivateMsg, Location
+from .models import Car, Order, PrivateMsg, Location, UserDetails
 
 LOCATION_CHOICES= [
     ('view'),
@@ -44,4 +44,17 @@ class LocationForm(forms.ModelForm):
             "loc_name",
             "address",
             "vehicle_cap",
+        ]
+
+class UserDetail(forms.ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = [
+            "first_name",
+            "last_name",
+            "mobileno",
+            "birthdate",
+            "address",
+            "license_number",
+            "license_place",
         ]

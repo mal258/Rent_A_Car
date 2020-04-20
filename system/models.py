@@ -49,5 +49,17 @@ class Location(models.Model):
     def __str__(self):
         return self.loc_name
 
+class UserDetails(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    mobileno = models.IntegerField()
+    birthdate = models.DateField()
+    address = models.CharField(max_length=30)
+    license_number = models.CharField(max_length=10)
+    license_place = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.first_name
+
  #   def get_absolute_url(self):
   #      return "/car/detail/%s/" % (self.id)

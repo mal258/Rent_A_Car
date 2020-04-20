@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from system.views import admin_car_list, admin_msg, order_list, car_created, order_update, order_delete, msg_delete, location_list, location, loc_detail
+from system.views import admin_car_list, admin_msg, order_list, car_created, order_update, order_delete, msg_delete, location_list, location, loc_detail,customer_created
 from accounts.views import (login_view, register_view, logout_view)
 
 urlpatterns = [
@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^register/', register_view, name='register'),
     url(r'^location/', location_list, name = "location_list"),
     url(r'^addLocation/$', location, name = "location"),
+    url(r'^customercreated/$', customer_created, name="customercreated"),
 
 ]
 if settings.DEBUG:

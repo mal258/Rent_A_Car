@@ -3,8 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 
-from .models import Car, Order, PrivateMsg, Location
-from .forms import CarForm, OrderForm, MessageForm, LocationForm
+from .models import Car, Order, PrivateMsg, Location, UserDetails
+from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail
 
 
 
@@ -145,7 +145,20 @@ def car_delete(request,id=None):
         'car': car,
     }
     return render(request, 'admin_index.html', context)
+#customer details
 
+def customer_created(request):
+    form = UserDetail(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect("/")
+
+    context = {
+        "form": form,
+        "title": "Primary Details"
+    }
+    return render(request, 'customer_details.html', context)
 #order
 
 def order_list(request):
@@ -279,12 +292,14 @@ def popular_car(request):
     }
     return render(request, 'new_car.html', context)
 
+
+
 def contact(request):
     form = MessageForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect("/car/newcar/")
+        return HttpResponseRedirect("/car")
     context = {
         "form": form,
         "title": "Contact With Us",
