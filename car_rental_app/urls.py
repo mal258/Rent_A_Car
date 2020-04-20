@@ -23,7 +23,8 @@ from accounts.views import (login_view, register_view, logout_view)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', admin_car_list, name='adminIndex'),
+    # url(r'^$', admin_car_list, name='adminIndex'),
+    url(r'^$', logout_view, name='adminIndex'),
     url(r'^listOrder/$', order_list, name = "order_list"),
     url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
     url(r'^(?P<id>\d+)/deleteOrder/$', order_delete, name = "order_delete"),
