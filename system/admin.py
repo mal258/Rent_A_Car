@@ -3,7 +3,7 @@ from .models import Car, Order, PrivateMsg, Location, UserDetails, start_subscri
 # Register your models here.
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ("car_name", "image", "company_name")
+    list_display = ("car_name", "image")
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("date", "to", "Drivers_name")
 
@@ -11,7 +11,7 @@ class PrivateMsgAdmin(admin.ModelAdmin):
     list_display = ("name", "email", "message")
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ("loc_name", "address", "vehicle_cap")
+    list_display = ("loc_name", "loc_zip", "address", "vehicle_cap")
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ("first_name","last_name","mobileno","birthdate","address","license_number","license_place",)
