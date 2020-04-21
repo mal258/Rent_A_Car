@@ -461,6 +461,8 @@ class PersonListView(ListView):
         return UserDetails.objects.filter(user=user)
 
 def PersonListView(request):
+    #expiry_date = UserDetails.objects.get("start_date")
+    #print(expiry_date)
     user_list = UserDetails.objects.filter(first_name=request.user)
     sub_list = StartSubscribe.objects.filter(first_name=request.user)
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
