@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
-
+from django.contrib.auth.decorators import login_required
 from .models import Car, Order, PrivateMsg, Location, UserDetails,start_subscription
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 
@@ -10,7 +10,7 @@ from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, St
 
 def home(request):
     context = {
-        "title" : "Car Rental"
+        "title" : "Rent a Car"
     }
     return render(request,'home.html', context)
 
@@ -361,7 +361,15 @@ def admin_msg(request):
     }
     return render(request, 'admin_msg.html', context)
 
+def admin_pge(request):
+    return render(request, 'admin/admin_home.html')
+
+
 def msg_delete(request,id=None):
     query = get_object_or_404(PrivateMsg, id=id)
     query.delete()
     return HttpResponseRedirect("/message/")
+
+@login_required
+def profile(request):
+    return render(request, 'admin/profile.html')

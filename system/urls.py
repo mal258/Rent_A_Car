@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home, name = "home"),
-    url(r'^$', views.car_list, name="car_list"),
+    url(r'^carlist/$', views.car_list, name="car_list"),
 
     #url(r'^carlist/$', system.views.car_list, name = "car_list"),
     url(r'^createOrder/$', views.order_created, name = "order_create"),
@@ -27,5 +27,4 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/location/$', views.loc_detail, name = "loc_detail"),
     url(r'^(?P<id>\d+)/edit/$', views.loc_edit, name = "loc_edit"),
     url(r'^(?P<id>\d+)/delete/$', views.loc_delete, name = "loc_delete"),
-
 ]

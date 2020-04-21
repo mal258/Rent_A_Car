@@ -18,12 +18,15 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from system.views import admin_car_list, admin_msg, order_list, car_created, order_update, order_delete, msg_delete, location_list, location, loc_detail,customer_created,start_subscription
+from system.views import admin_car_list, admin_msg, order_list, \
+    car_created, order_update, order_delete, msg_delete, location_list, \
+    location, loc_detail,customer_created,start_subscription, admin_pge, profile
 from accounts.views import (login_view, register_view, logout_view)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^$', admin_car_list, name='adminIndex'),
+    #url(r'^$', admin_car_list, name='adminIndex'),
+
     url(r'^$', logout_view, name='adminIndex'),
     url(r'^listOrder/$', order_list, name = "order_list"),
     url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
@@ -39,6 +42,9 @@ urlpatterns = [
     url(r'^addLocation/$', location, name = "location"),
     url(r'^customercreated/$', customer_created, name="customercreated"),
     url(r'^startsubscribe/$', start_subscription, name="startsubscribe"),
+    url(r'adminhome/$', admin_pge, name = "adminpge"),
+    url(r'^admincarlist/', admin_car_list, name='admin_car_list'),
+    url(r'^adminhome/profile/', profile, name="adminpage"),
 
 ]
 if settings.DEBUG:
