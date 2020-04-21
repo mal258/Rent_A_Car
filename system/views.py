@@ -2,15 +2,16 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
-
-from .models import Car, Order, PrivateMsg, Location, UserDetails,start_subscription
+import datetime
+from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 from .tables import PersonTable
 from django.views.generic import ListView
 from django_tables2 import SingleTableView
-
+from django.shortcuts import render
 from .models import UserDetails
 from .tables import PersonTable
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -97,7 +98,7 @@ def location(request):
 
 def location_list(request):
     loc = Location.objects.order_by('-id')
-    #car = Car.objects.order_by('-id')
+    car = Car.objects.order_by('-id')
 
     query = request.GET.get('q')
     if query:
@@ -125,7 +126,7 @@ def location_list(request):
     return render(request, 'location.html', context)
 
 def loc_edit(request,id=None):
-    return render(request, 'location.html', context)
+    return render(request, 'location.html')
 
 def loc_delete(request,id=None):
     query = get_object_or_404(Location,id = id)
@@ -137,7 +138,7 @@ def loc_delete(request,id=None):
     }
     return render(request, 'admin_index.html', context)
 
-def loc_detail(request):
+def loc_detail(request,context):
     return render(request, 'admin_index.html', context)
 
 
@@ -374,7 +375,7 @@ def msg_delete(request,id=None):
     query = get_object_or_404(PrivateMsg, id=id)
     query.delete()
     return HttpResponseRedirect("/message/")
-from django.shortcuts import render
+
 
 # #
 # class PersonListView(SingleTableView):
@@ -442,6 +443,6 @@ def PersonListView(request):
     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 
-@login_required
-def profile(request):
-    return render(request, 'admin/profile.html')
+# @login_required
+# def profile(request):
+#     return render(request, 'admin/profile.html')
