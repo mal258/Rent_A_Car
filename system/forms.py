@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car, Order, PrivateMsg, Location, UserDetails, start_subscription
+from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe
 
 LOCATION_CHOICES= [('view'),('add'),]
 
@@ -68,9 +68,10 @@ class StartSubcription(forms.ModelForm):
     # widget = {
     #     'start_date':forms.TextInput(attrs={'class':'datepicker'})}
     class Meta:
-        model = start_subscription
-        fields = ["start_date",
-            "payment_type",
+        model = StartSubscribe
+        fields = ["first_name",
+                  "start_date",
+                  "payment_type",
                   "credit_card_number",
                   "credit_card_name",
                   "expiry_date",

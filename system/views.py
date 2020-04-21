@@ -2,10 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required
+
 from .models import Car, Order, PrivateMsg, Location, UserDetails,start_subscription
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
+from .tables import PersonTable
+from django.views.generic import ListView
+from django_tables2 import SingleTableView
 
+from .models import UserDetails
+from .tables import PersonTable
 
 
 def home(request):
@@ -369,6 +374,73 @@ def msg_delete(request,id=None):
     query = get_object_or_404(PrivateMsg, id=id)
     query.delete()
     return HttpResponseRedirect("/message/")
+from django.shortcuts import render
+
+# #
+# class PersonListView(SingleTableView):
+#     model = UserDetails
+#     table_class = PersonTable
+#     queryset = UserDetails.objects.all()
+#     template_name = 'templates/user_summary.html'
+#
+
+
+# def PersonListView(request):
+#     latest_question_list = get_object_or_404(UserDetails.objects.all())
+#     if request.method =='POST':
+#         form=UserDetail(request.POST)
+#         if form.is_valid():
+#             return HttpResponseRedirect('/car/newcar/')
+#     else:
+#         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+#         form = UserDetail(initial={'renewal_date': proposed_renewal_date})
+#
+#     template=loader.get_template('user_summary.html')
+#     context = {'form':form,
+#         'latest_question_list': latest_question_list}
+#     return HttpResponse(template.render(context, request))
+
+
+
+
+
+# def PersonListView(request):
+#     AuthorFormSet = UserDetail(UserDetails)
+#     if request.method == "POST":
+#         formset = AuthorFormSet(
+#             request.POST, request.FILES,
+#             queryset=UserDetails.objects.filter(first_name__startswith=''),
+#         )
+#         if formset.is_valid():
+#             formset.save()
+#             # Do something.
+#     else:
+#         formset = AuthorFormSet(queryset=UserDetails.objects.filter(first_name__startswith=''))
+#     return render(request, 'user_summary.html', {'formset': formset})
+
+
+class PersonListView(ListView):
+    model = Post = UserDetails
+    template_name = 'user_summary.html'
+
+    def get_queryset(self):
+        user = get_object_or_404(UserDetails, username=self.kwargs.get('first_name'))
+        return UserDetails.objects.filter(author=user)
+
+    def get_username_field(self):
+        user = get_object_or_404(UserDetails, username=self.kwargs.get('username'))
+        return UserDetails.objects.filter(user=user)
+
+def PersonListView(request):
+    #expiry_date = UserDetails.objects.get("start_date")
+    #print(expiry_date)
+    user_list = UserDetails.objects.filter(first_name=request.user)
+    sub_list = StartSubscribe.objects.filter(first_name=request.user)
+    e = StartSubscribe.objects.get(id=1)
+    e.start_date += datetime.timedelta(days=180)
+    e.save()
+    #print(sub_list.values("start_date")+datetime.timedelta(days=180))
+    return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 
 @login_required
 def profile(request):
