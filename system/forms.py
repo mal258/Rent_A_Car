@@ -69,8 +69,9 @@ class StartSubcription(forms.ModelForm):
     #     'start_date':forms.TextInput(attrs={'class':'datepicker'})}
     class Meta:
         model = StartSubscribe
-        fields = ["start_date",
-            "payment_type",
+        fields = ["first_name",
+                  "start_date",
+                  "payment_type",
                   "credit_card_number",
                   "credit_card_name",
                   "expiry_date",

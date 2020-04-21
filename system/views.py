@@ -462,4 +462,5 @@ class PersonListView(ListView):
 
 def PersonListView(request):
     user_list = UserDetails.objects.filter(first_name=request.user)
-    return render(request, 'user_summary.html', {'obj': user_list})
+    sub_list = StartSubscribe.objects.filter(first_name=request.user)
+    return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})

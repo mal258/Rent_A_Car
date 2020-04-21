@@ -54,7 +54,7 @@ class Car(models.Model):
         return "/car/%s/" % (self.id)
 
 class Order(models.Model):
-    Drivers_name = models.CharField(max_length=100)
+    Drivers_name = models.CharField(max_length=100,unique=True)
     license_number = models.CharField(max_length=100)
     cell_no = models.CharField(max_length=15)
     address = models.TextField()
@@ -84,7 +84,7 @@ class Location(models.Model):
         return self.loc_name
 
 class UserDetails(models.Model):
-    first_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30,unique=True)
     last_name = models.CharField(max_length=30)
     mobileno = models.IntegerField()
     birthdate = models.DateField()
@@ -97,6 +97,7 @@ class UserDetails(models.Model):
 
 class StartSubscribe(models.Model):
 
+    first_name = models.CharField(max_length=30,unique=True)
     start_date = models.DateField()
     payment_type = models.CharField(max_length=10)
     credit_card_number = models.IntegerField()
