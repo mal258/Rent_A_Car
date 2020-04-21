@@ -1,4 +1,5 @@
 from django.db import models
+import django_tables2 as tables
 
 #from multiselectfield import MultiSelectField
 from django import forms
@@ -94,7 +95,7 @@ class UserDetails(models.Model):
     def __str__(self):
         return self.first_name
 
-class start_subscription(models.Model):
+class StartSubscribe(models.Model):
 
     start_date = models.DateField()
     payment_type = models.CharField(max_length=10)

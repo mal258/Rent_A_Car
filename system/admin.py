@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, Order, PrivateMsg, Location, UserDetails, start_subscription
+from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe
 # Register your models here.
 
 class CarAdmin(admin.ModelAdmin):
@@ -24,4 +24,4 @@ admin.site.register(Order, OrderAdmin)
 admin.site.register(PrivateMsg, PrivateMsgAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(UserDetails, CustomerAdmin)
-admin.site.register(start_subscription,StartSubscriptionAdmin)
+admin.site.register(StartSubscribe,StartSubscriptionAdmin)

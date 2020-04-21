@@ -17,8 +17,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
+from django.urls import path
 from django.conf.urls.static import static
-from system.views import admin_car_list, admin_msg, order_list, car_created, order_update, order_delete, msg_delete, location_list, location, loc_detail,customer_created,start_subscription
+from system.views import admin_car_list, admin_msg, order_list, car_created, order_update, order_delete, msg_delete, location_list, location, loc_detail,customer_created,start_subscription,PersonListView
 from accounts.views import (login_view, register_view, logout_view)
 
 urlpatterns = [
@@ -39,6 +40,7 @@ urlpatterns = [
     url(r'^addLocation/$', location, name = "location"),
     url(r'^customercreated/$', customer_created, name="customercreated"),
     url(r'^startsubscribe/$', start_subscription, name="startsubscribe"),
+    url(r'^details/$', PersonListView, name="details"),
 
 ]
 if settings.DEBUG:
