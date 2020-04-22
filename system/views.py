@@ -4,7 +4,7 @@ from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 import datetime
 from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
-from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
+from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription,DeleteUser
 from .tables import PersonTable
 from django.views.generic import ListView
 from django_tables2 import SingleTableView
@@ -12,6 +12,18 @@ from django.shortcuts import render
 from .models import UserDetails
 from .tables import PersonTable
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth import (
+    authenticate,
+    login,
+    logout,
+    models,
+)
+
+User = get_user_model()
 
 
 def home(request):
@@ -179,7 +191,19 @@ def start_subscription(request):
         "form": form,
         "title": "start subscription"
     }
-    return render(request, 'customer_details.html', context)
+    return render(request, 'connected_services.html', context)
+
+# def end_subscription(request):
+#     query = get_object_or_404(StartSubscribe, first_name=request.user)
+#     query.delete()
+#
+#     subs = StartSubscribe.objects.all()
+#     context = {
+#         'delete_subs ': subs,
+#     }
+#     return render(request, 'connected_services.html', context)
+
+
 
 
 #order
@@ -377,47 +401,7 @@ def msg_delete(request,id=None):
     return HttpResponseRedirect("/message/")
 
 
-# #
-# class PersonListView(SingleTableView):
-#     model = UserDetails
-#     table_class = PersonTable
-#     queryset = UserDetails.objects.all()
-#     template_name = 'templates/user_summary.html'
-#
 
-
-# def PersonListView(request):
-#     latest_question_list = get_object_or_404(UserDetails.objects.all())
-#     if request.method =='POST':
-#         form=UserDetail(request.POST)
-#         if form.is_valid():
-#             return HttpResponseRedirect('/car/newcar/')
-#     else:
-#         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-#         form = UserDetail(initial={'renewal_date': proposed_renewal_date})
-#
-#     template=loader.get_template('user_summary.html')
-#     context = {'form':form,
-#         'latest_question_list': latest_question_list}
-#     return HttpResponse(template.render(context, request))
-
-
-
-
-
-# def PersonListView(request):
-#     AuthorFormSet = UserDetail(UserDetails)
-#     if request.method == "POST":
-#         formset = AuthorFormSet(
-#             request.POST, request.FILES,
-#             queryset=UserDetails.objects.filter(first_name__startswith=''),
-#         )
-#         if formset.is_valid():
-#             formset.save()
-#             # Do something.
-#     else:
-#         formset = AuthorFormSet(queryset=UserDetails.objects.filter(first_name__startswith=''))
-#     return render(request, 'user_summary.html', {'formset': formset})
 
 
 class PersonListView(ListView):
@@ -443,6 +427,46 @@ def PersonListView(request):
     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 
-# @login_required
-# def profile(request):
-#     return render(request, 'admin/profile.html')
+
+def end_subscription(request):
+
+    user = User.objects.get(username=request.user)
+    logout(request)
+    user.delete()
+    context = {
+        "deleted_msg": "Account has been deleted",
+    }
+    return render(request, 'delete_subscription.html', context) and HttpResponseRedirect('/logout/')
+#
+# class end_subscription(DeleteView):
+#     template_name = 'delete_subscription.html'
+#     model = UserDetails
+#     success_url = '/logout/'
+#
+# def end_subscription(request):
+#     form = DeleteUser(request.POST or None)
+#     if form.is_valid():
+#         user = form.
+#         password = form.cleaned_data.get("password")
+#         user.set_password(password)
+#         user.save()
+#
+#         return redirect("/login/")
+#     context = {
+#         "title" : "Registration",
+#         "form": form,
+#     }
+#     return render(request, "form.html", context)
+
+
+#
+# def PersonListView1(request):
+#     #expiry_date = UserDetails.objects.get("start_date")
+#     #print(expiry_date)
+#     user_list = UserDetails.objects.filter(first_name=request.user)
+#     sub_list = StartSubscribe.objects.filter(first_name=request.user)
+#     e = StartSubscribe.objects.get(id=1)
+#     e.start_date += datetime.timedelta(days=180)
+#     e.save()
+#     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
+#     return render(request, 'connected_services.html', {'obj1': user_list,'obj2': sub_list})
