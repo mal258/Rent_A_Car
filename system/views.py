@@ -437,36 +437,4 @@ def end_subscription(request):
         "deleted_msg": "Account has been deleted",
     }
     return render(request, 'delete_subscription.html', context) and HttpResponseRedirect('/logout/')
-#
-# class end_subscription(DeleteView):
-#     template_name = 'delete_subscription.html'
-#     model = UserDetails
-#     success_url = '/logout/'
-#
-# def end_subscription(request):
-#     form = DeleteUser(request.POST or None)
-#     if form.is_valid():
-#         user = form.
-#         password = form.cleaned_data.get("password")
-#         user.set_password(password)
-#         user.save()
-#
-#         return redirect("/login/")
-#     context = {
-#         "title" : "Registration",
-#         "form": form,
-#     }
-#     return render(request, "form.html", context)
 
-
-#
-# def PersonListView1(request):
-#     #expiry_date = UserDetails.objects.get("start_date")
-#     #print(expiry_date)
-#     user_list = UserDetails.objects.filter(first_name=request.user)
-#     sub_list = StartSubscribe.objects.filter(first_name=request.user)
-#     e = StartSubscribe.objects.get(id=1)
-#     e.start_date += datetime.timedelta(days=180)
-#     e.save()
-#     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
-#     return render(request, 'connected_services.html', {'obj1': user_list,'obj2': sub_list})
