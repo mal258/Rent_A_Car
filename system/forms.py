@@ -1,10 +1,12 @@
 from django import forms
 from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 LOCATION_CHOICES= [('view'),('add'),]
 
 class CarForm(forms.ModelForm):
-
     class Meta:
         model = Car
         fields = '__all__'
@@ -64,7 +66,14 @@ class StartSubcription(forms.ModelForm):
                   "credit_card_number",
                   "credit_card_name",
                   "expiry_date",
-                  "cvv",
+                  "cvv",]
+
+class DeleteUser(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+
         ]
 
 # class CreateBookingForm(forms.ModelForm):

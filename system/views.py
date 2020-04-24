@@ -2,15 +2,33 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
+import datetime
+from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
+from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription,DeleteUser
+from .tables import PersonTable
 
 from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 from django.contrib.auth.decorators import login_required
 #from .tables import PersonTable
 from django.views.generic import ListView
-#from django_tables2 import SingleTableView
-
+from django_tables2 import SingleTableView
+from django.shortcuts import render
 from .models import UserDetails
+from .tables import PersonTable
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth import (
+    authenticate,
+    login,
+    logout,
+    models,
+)
+
+User = get_user_model()
 #from .tables import PersonTable
 
 
@@ -279,10 +297,6 @@ def newcar(request):
         'car': new,
     }
     return render(request, 'new_car.html', context)
-
-# def car_serach(request):
-#     inv = Car.objects.order_by('-id')
-#     return render(request, 'user/userpage.html')
 
 def like_update(request, id=None):
     new = Car.objects.order_by('-id')

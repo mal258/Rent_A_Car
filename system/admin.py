@@ -17,7 +17,7 @@ class CustomerAdmin(admin.ModelAdmin):
     list_display = ("first_name","last_name","mobileno","birthdate","address","license_number","license_place",)
 
 class StartSubscriptionAdmin(admin.ModelAdmin):
-    ist_display = ("start_date","payment_type", "credit_card_number", "credit_card_name", "expiry_date","cvv",)
+    list_display = ("start_date","payment_type", "credit_card_number", "credit_card_name", "expiry_date","cvv",)
 
 admin.site.register(Car, CarAdmin)
 admin.site.register(Order, OrderAdmin)
