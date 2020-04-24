@@ -404,17 +404,7 @@ def msg_delete(request,id=None):
 
 
 
-class PersonListView(ListView):
-    model = Post = UserDetails
-    template_name = 'user_summary.html'
 
-    def get_queryset(self):
-        user = get_object_or_404(UserDetails, username=self.kwargs.get('first_name'))
-        return UserDetails.objects.filter(author=user)
-
-    def get_username_field(self):
-        user = get_object_or_404(UserDetails, username=self.kwargs.get('username'))
-        return UserDetails.objects.filter(user=user)
 
 def PersonListView(request):
     #expiry_date = UserDetails.objects.get("start_date")
@@ -422,11 +412,11 @@ def PersonListView(request):
     user_list = UserDetails.objects.filter(first_name=request.user)
     sub_list = StartSubscribe.objects.filter(first_name=request.user)
 
-    e = StartSubscribe.objects.get(id=2)
-    e.start_date += datetime.timedelta(days=180)
-    e.save()
-    print(sub_list)
-    print(StartSubscribe.objects.filter("start_date"))
+    # e = StartSubscribe.objects.get(id=2)
+    # e.start_date += datetime.timedelta(days=180)
+    # e.save()
+    # print(sub_list)
+    # print(StartSubscribe.objects.filter("start_date"))
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 
 

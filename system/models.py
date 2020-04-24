@@ -92,6 +92,7 @@ class UserDetails(models.Model):
     license_number = models.CharField(max_length=10)
     license_place = models.CharField(max_length=30)
 
+
     def __str__(self):
         return self.first_name
 
