@@ -4,21 +4,10 @@ from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscrib
 LOCATION_CHOICES= [('view'),('add'),]
 
 class CarForm(forms.ModelForm):
+
     class Meta:
         model = Car
-        fields = [
-            "image",
-            "car_name",
-            "car_type",
-            "model",
-            "reg_tag",
-            "num_of_seats",
-            "cur_milage",
-            "last_serv",
-            "cost_per_day",
-            "vehicle_cond",
-            "rent_loc",
-        ]
+        fields = '__all__'
 
 class OrderForm(forms.ModelForm):
     class Meta:
@@ -44,8 +33,8 @@ class LocationForm(forms.ModelForm):
     class Meta:
         model = Location
         fields = [
-            "loc_name",
             "loc_zip",
+            "loc_name",
             "loc_id",
             "address",
             "vehicle_cap",
@@ -77,3 +66,19 @@ class StartSubcription(forms.ModelForm):
                   "expiry_date",
                   "cvv",
         ]
+
+# class CreateBookingForm(forms.ModelForm):
+#     class Meta:
+#         model = Booking
+#         fields = ('vehicle_type', 'start_time', 'end_time')
+#         exclude = ('user',)
+#
+#     depot_list = Location.objects.depots()
+#     vehicle_list = Car.objects.vehicles()
+#
+#     depot = forms.ChoiceField(choices=[(depot.depot, depot.depot) for depot in depot_list])
+#     vehicle_type = forms.ChoiceField(
+#         choices=[(vehicle_type.car_type, vehicle_type.car_type) for vehicle_type in vehicle_list])
+#     start_time = forms.DateTimeField()
+#     end_time = forms.DateTimeField()
+

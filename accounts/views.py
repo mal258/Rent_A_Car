@@ -25,7 +25,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("/adminhome/")
             login(request, user)
-            return redirect("/car/newcar/")
+            return redirect("/car/usersearch/")
     return render(request, "form.html", {"form": form1, "title": "Login"})
 
 def register_view(request):

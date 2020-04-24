@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from system.views import admin_car_list, admin_msg, order_list, \
     car_created, order_update, order_delete, msg_delete, location_list, \
     location, loc_detail,customer_created,start_subscription, admin_pge, profile
+from system.search import *
 from accounts.views import (login_view, register_view, logout_view)
 
 urlpatterns = [
@@ -31,11 +32,13 @@ urlpatterns = [
     url(r'^listOrder/$', order_list, name = "order_list"),
     url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
     url(r'^(?P<id>\d+)/deleteOrder/$', order_delete, name = "order_delete"),
-    url(r'^create/$', car_created, name = "car_create"),
+    url(r'^create/', car_created, name = "car_create"),
     url(r'^message/$', admin_msg, name='message'),
     url(r'^(?P<id>\d+)/deletemsg/$', msg_delete, name = "msg_delete"),
     url(r'^car/', include('system.urls')),
     url(r'^login/', login_view, name='login'),
+    url(r'^car/usersearch/$', user_car_search, name = "usersearch"),
+    url(r'^car/car_loc_search1/$', car_loc_search1, name = "car_loc_search1"),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^register/', register_view, name='register'),
     url(r'^location/', location_list, name = "location_list"),
@@ -45,6 +48,7 @@ urlpatterns = [
     url(r'adminhome/$', admin_pge, name = "adminpge"),
     url(r'^admincarlist/', admin_car_list, name='admin_car_list'),
     url(r'^adminhome/profile/', profile, name="adminpage"),
+    url(r'^cartable/$', CarListView.as_view(), name = "cartable"),
 
 ]
 if settings.DEBUG:

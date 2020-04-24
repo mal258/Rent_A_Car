@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}  Newly Added car {% endblock %}
 
-
 {% block nav %}
         <li><a href="{% url 'newcar' %}"><span class="glyphicon glyphicon-align-justify"></span> Newly Added Car</a></li>
         <li><a href="{% url 'popularcar' %}"><span class="glyphicon glyphicon-star"></span> Popular car</a></li>
@@ -39,6 +38,11 @@
         {% endfor %}
 </div>
 
+
+<form action="{% url 'car_loc_search1' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
+</form>
     <nav>
   <ul class="pager">
     <li class="previous">{% if car.has_previous %}

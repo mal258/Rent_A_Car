@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from system import views
 from . import views
+from system import search
 
 urlpatterns = [
     url(r'^$', views.home, name = "home"),
@@ -27,4 +28,5 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/location/$', views.loc_detail, name = "loc_detail"),
     url(r'^(?P<id>\d+)/edit/$', views.loc_edit, name = "loc_edit"),
     url(r'^(?P<id>\d+)/delete/$', views.loc_delete, name = "loc_delete"),
+
 ]

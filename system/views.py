@@ -3,14 +3,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 
-from .models import Car, Order, PrivateMsg, Location, UserDetails,start_subscription
+from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
-from .tables import PersonTable
+from django.contrib.auth.decorators import login_required
+#from .tables import PersonTable
 from django.views.generic import ListView
-from django_tables2 import SingleTableView
+#from django_tables2 import SingleTableView
 
 from .models import UserDetails
-from .tables import PersonTable
+#from .tables import PersonTable
 
 
 def home(request):
@@ -61,7 +62,10 @@ def car_created(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect("/")
+        var = form
+        print(var)
+        #car = Car.objects.filter(zipcode__icontains=query)
+        return HttpResponseRedirect("/admincarlist")
     context = {
         "form" : form,
         "title": "Create Car"
@@ -255,7 +259,7 @@ def newcar(request):
     if query:
         new = new.filter(
             Q(car_name__icontains=query) |
-            Q(company_name__icontains=query) |
+            Q(car_type__icontains=query) |
             Q(num_of_seats__icontains=query) |
             Q(cost_per_day__icontains=query)
         )
@@ -275,6 +279,10 @@ def newcar(request):
         'car': new,
     }
     return render(request, 'new_car.html', context)
+
+# def car_serach(request):
+#     inv = Car.objects.order_by('-id')
+#     return render(request, 'user/userpage.html')
 
 def like_update(request, id=None):
     new = Car.objects.order_by('-id')
@@ -337,7 +345,7 @@ def admin_car_list(request):
     if query:
         car = car.filter(
             Q(car_name__icontains=query) |
-            Q(company_name__icontains=query) |
+            Q(car_type__icontains=query) |
             Q(num_of_seats__icontains=query) |
             Q(cost_per_day__icontains=query)
         )

@@ -3,7 +3,7 @@ from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscrib
 # Register your models here.
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ("car_name", "image")
+    list_display = ("car_name","car_type","model","num_of_seats","reg_tag","cost_per_day","depot","zipcode","vehicle_cond")
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("date", "to", "Drivers_name")
 
