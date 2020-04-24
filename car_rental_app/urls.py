@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from system.views import admin_car_list, admin_msg, order_list, \
     car_created, order_update, order_delete, msg_delete, location_list, \
-    location, loc_detail,customer_created,start_subscription, admin_pge, PersonListView,end_subscription
+    location, loc_detail,customer_created,start_subscription, admin_pge, PersonListView,end_subscription,extend_subscription
 from accounts.views import (login_view, register_view, logout_view)
 
 urlpatterns = [
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^customercreated/$', customer_created, name="customercreated"),
     url(r'^startsubscribe/$', start_subscription, name="startsubscribe"),
     url(r'^endsubscribe/$', end_subscription, name="endsubscribe"),
+    url(r'^extendsubscribe/$', extend_subscription, name="extendsubscribe"),
     url(r'adminhome/$', admin_pge, name = "adminpge"),
     url(r'^admincarlist/', admin_car_list, name='admin_car_list'),
     #url(r'^adminhome/profile/', profile, name="adminpage"),

@@ -280,7 +280,7 @@ def newcar(request):
     if query:
         new = new.filter(
             Q(car_name__icontains=query) |
-            Q(company_name__icontains=query) |
+            Q(car_type__icontains=query) |
             Q(num_of_seats__icontains=query) |
             Q(cost_per_day__icontains=query)
         )
@@ -421,10 +421,12 @@ def PersonListView(request):
     #print(expiry_date)
     user_list = UserDetails.objects.filter(first_name=request.user)
     sub_list = StartSubscribe.objects.filter(first_name=request.user)
-    e = StartSubscribe.objects.get(id=1)
+
+    e = StartSubscribe.objects.get(id=2)
     e.start_date += datetime.timedelta(days=180)
     e.save()
-    #print(sub_list.values("start_date")+datetime.timedelta(days=180))
+    print(sub_list)
+    print(StartSubscribe.objects.filter("start_date"))
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 
 
@@ -438,3 +440,14 @@ def end_subscription(request):
     }
     return render(request, 'delete_subscription.html', context) and HttpResponseRedirect('/logout/')
 
+
+def extend_subscription(request):
+    #expiry_date = UserDetails.objects.get("start_date")
+    #print(expiry_date)
+    user_list = UserDetails.objects.filter(first_name=request.user)
+    sub_list = StartSubscribe.objects.filter(first_name=request.user)
+    k = StartSubscribe.objects.get(id=2)
+
+    k.start_date += datetime.timedelta(days=5)
+    k.save()
+    return render(request, 'renew_subscription.html', {'obj8': user_list,'obj9': sub_list})
