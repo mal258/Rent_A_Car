@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe
+from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe, User
 # Register your models here.
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ("car_name","car_type","model","num_of_seats","reg_tag","cost_per_day","depot","zipcode","vehicle_cond")
+    list_display = ("car_name","car_type","model","late_fee","reg_tag","cost_per_day","depot","zipcode","vehicle_cond")
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("date", "to", "Drivers_name")
 
@@ -25,3 +25,4 @@ admin.site.register(PrivateMsg, PrivateMsgAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(UserDetails, CustomerAdmin)
 admin.site.register(StartSubscribe,StartSubscriptionAdmin)
+#admin.site.register(Customer)

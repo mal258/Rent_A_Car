@@ -9,7 +9,7 @@
 {% block nav %}
 <!--        <li><a href="{% url 'newcar' %}"><span class="glyphicon glyphicon-align-justify"></span> Newly Added Car</a></li>-->
 <!--        <li><a href="{% url 'popularcar' %}"><span class="glyphicon glyphicon-star"></span> Popular car</a></li>-->
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout</a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
 {% endblock %}
 {% block body %}
 

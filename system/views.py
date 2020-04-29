@@ -3,19 +3,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 import datetime
-from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
-from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription,DeleteUser
-from .tables import PersonTable
 
-from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
+#from .tables import PersonTable
+
+from .models import Car, Order, PrivateMsg, Location ,StartSubscribe, Customer, User
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 from django.contrib.auth.decorators import login_required
-#from .tables import PersonTable
+
 from django.views.generic import ListView
 from django_tables2 import SingleTableView
-from django.shortcuts import render
 from .models import UserDetails
-from .tables import PersonTable
+
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -78,11 +76,10 @@ def car_created(request):
     form = CarForm(request.POST or None, request.FILES or None)
     
     if form.is_valid():
+        #data = form.data.get()
+        #print(data)
         instance = form.save(commit=False)
         instance.save()
-        var = form
-        print(var)
-        #car = Car.objects.filter(zipcode__icontains=query)
         return HttpResponseRedirect("/admincarlist")
     context = {
         "form" : form,
@@ -179,7 +176,7 @@ def customer_created(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect("/car/newcar/")
+        return HttpResponseRedirect("/car/usersearch/")
 
     context = {
         "form": form,
@@ -271,6 +268,7 @@ def order_delete(request,id=None):
     return HttpResponseRedirect("/listOrder/")
 
 def newcar(request):
+    print("called in newcar")
     new = Car.objects.order_by('-id')
     #seach
     query = request.GET.get('q')
@@ -278,7 +276,7 @@ def newcar(request):
         new = new.filter(
             Q(car_name__icontains=query) |
             Q(car_type__icontains=query) |
-            Q(num_of_seats__icontains=query) |
+            Q(vehicle_cond__icontains=query) |
             Q(cost_per_day__icontains=query)
         )
 
@@ -441,26 +439,30 @@ from django.shortcuts import render
 #     return render(request, 'user_summary.html', {'formset': formset})
 
 
-class PersonListView(ListView):
-    model = Post = UserDetails
-    template_name = 'user_summary.html'
-
-    def get_queryset(self):
-        user = get_object_or_404(UserDetails, username=self.kwargs.get('first_name'))
-        return UserDetails.objects.filter(author=user)
-
-    def get_username_field(self):
-        user = get_object_or_404(UserDetails, username=self.kwargs.get('username'))
-        return UserDetails.objects.filter(user=user)
+# class PersonListView(ListView):
+#     model = Post = UserDetails
+#     template_name = 'user_summary.html'
+#
+#     def get_queryset(self):
+#         user = get_object_or_404(UserDetails, username=self.kwargs.get('first_name'))
+#         return UserDetails.objects.filter(author=user)
+#
+#     def get_username_field(self):
+#         user = get_object_or_404(UserDetails, username=self.kwargs.get('username'))
+#         return UserDetails.objects.filter(user=user)
 
 def PersonListView(request):
     #expiry_date = UserDetails.objects.get("start_date")
     #print(expiry_date)
-    user_list = UserDetails.objects.filter(first_name=request.user)
-    sub_list = StartSubscribe.objects.filter(first_name=request.user)
-    e = StartSubscribe.objects.get(id=1)
-    e.start_date += datetime.timedelta(days=180)
-    e.save()
+    #User = get_user_model()
+    print(request.user)
+    user_list = User.objects.filter(first_name=request.user)
+    profile = User.objects.get(email='test@gmail.com')
+    print(profile.customer.mobileno)
+    sub_list = StartSubscribe.objects.filter(first_name__icontains=request.user)
+    # e = StartSubscribe.objects.get(id=1)
+    # e.start_date += datetime.timedelta(days=180)
+    # e.save()
     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 

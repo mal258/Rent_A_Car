@@ -2,6 +2,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from system import views
 from . import views
+from system.booking import *
+from .search import *
 from system import search
 
 urlpatterns = [
@@ -9,7 +11,8 @@ urlpatterns = [
     url(r'^carlist/$', views.car_list, name="car_list"),
 
     #url(r'^carlist/$', system.views.car_list, name = "car_list"),
-    url(r'^createOrder/$', views.order_created, name = "order_create"),
+    #url(r'^createOrder/$', views.order_created, name = "order_create"),
+    #url(r'^createOrder/$', create_booking2, name = "order_create"),
 
     url(r'^(?P<id>\d+)/edit/$', views.car_update, name = "car_edit"),
 
@@ -21,6 +24,8 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/deleteOrder/$', views.order_delete, name = "order_delete"),
     url(r'^contact/$', views.contact, name = "contact"),
     url(r'^newcar/$', views.newcar, name = "newcar"),
+    url(r'^car/usersearch/$', user_car_search, name = "usersearch"),
+    url(r'^(?P<customer_id>[0-9]+)/createOrder/$', create_booking2, name = "order_create"),
     url(r'^(?P<id>\d+)/like/$', views.like_update, name = "like"),
     url(r'^popularcar/$', views.popular_car, name = "popularcar"),
     url(r'^location/', views.location_list, name = "location_list"),

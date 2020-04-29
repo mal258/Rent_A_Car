@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 #from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
+from django.contrib import messages
+#from .forms import SignUpForm
+from system.models import Customer
+from django.contrib.auth.decorators import login_required
+
 
 from django.contrib.auth import (
     authenticate,
@@ -46,4 +51,41 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return render(request, "home.html", {})
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get("password")
+            user.set_password(password)
+            user.save()
+
+            return redirect("/login/")
+    else:
+        form = SignUpForm()
+
+    context = {'form': form}
+    return render(request, 'form.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

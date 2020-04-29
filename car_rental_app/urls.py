@@ -18,11 +18,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from system.views import admin_car_list, admin_msg, order_list, \
-    car_created, order_update, order_delete, msg_delete, location_list, \
-    location, loc_detail,customer_created,start_subscription, admin_pge, profile
+# from system.views import admin_car_list, admin_msg, order_list, \
+#     car_created, order_update, order_delete, msg_delete, location_list, \
+#     location, loc_detail,customer_created,start_subscription, admin_pge, profile
 from system.search import *
-from accounts.views import (login_view, register_view, logout_view)
+from system.views import *
+from accounts.views import (login_view, register_view, logout_view,register_user)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -41,6 +42,7 @@ urlpatterns = [
     url(r'^car/car_loc_search1/$', car_loc_search1, name = "car_loc_search1"),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^register/', register_view, name='register'),
+    #url(r'^register/', register_user, name='register'),
     url(r'^location/', location_list, name = "location_list"),
     url(r'^addLocation/$', location, name = "location"),
     url(r'^customercreated/$', customer_created, name="customercreated"),
@@ -49,6 +51,7 @@ urlpatterns = [
     url(r'^admincarlist/', admin_car_list, name='admin_car_list'),
     url(r'^adminhome/profile/', profile, name="adminpage"),
     url(r'^cartable/$', CarListView.as_view(), name = "cartable"),
+    url(r'details/$', PersonListView, name = "details"),
 
 ]
 if settings.DEBUG:

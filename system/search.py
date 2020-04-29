@@ -4,7 +4,7 @@ from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 
 from .models import Car, Order, PrivateMsg, Location, UserDetails,StartSubscribe
-from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
+#from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 from django.contrib.auth.decorators import login_required
 #from .tables import PersonTable
 from django.views.generic import ListView
@@ -77,7 +77,7 @@ def user_car_search(request):
         new = new.filter(
             Q(car_name__icontains=query) |
             Q(car_type__icontains=query) |
-            Q(num_of_seats__icontains=query) |
+            Q(vehicle_cond__icontains=query) |
             Q(cost_per_day__icontains=query)
         )
 

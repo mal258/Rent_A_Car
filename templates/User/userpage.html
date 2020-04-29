@@ -9,8 +9,8 @@
         <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
 {% endblock %}
 {% block body %}
-<div class="container" style="margin-top: 15px;">
-<div class="row">
+    <div class="container" style="margin-top: 15px;">
+    <div class="row">
         {% for ob in car %}
 
       <div class="col-sm-6 col-md-3">
@@ -28,7 +28,7 @@
             <p>
                 <a href="{% url 'like' ob.id %}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                 <a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Detail</a>
-                <a href="{% url 'order_create' %}" class="btn btn-danger" role="button">Book</a></p>
+                <a href="{% url 'order_create' ob.id%}" class="btn btn-danger" role="button">Book</a></p>
               </div>
           </div>
         </div>
@@ -36,13 +36,14 @@
 
 
         {% endfor %}
-</div>
-
+    </div>
+    </div>
 
 <form action="{% url 'car_loc_search1' %}" method="get">
   <input name="q" type="text" placeholder="Search...">
     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
 </form>
+
     <nav>
   <ul class="pager">
     <li class="previous">{% if car.has_previous %}
