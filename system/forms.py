@@ -2,6 +2,7 @@ from django import forms
 from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe, Booking
 from django.contrib.auth import get_user_model
 from .manager import *
+from .choices import DEPOTS, CAR_TYPE
 
 User = get_user_model()
 
@@ -12,7 +13,7 @@ class CarForm(forms.ModelForm):
     class Meta:
         model = Car
         fields = '__all__'
-        exclude = ('late_fee',)
+ #       exclude = ('late_fee',)
 
 
 class OrderForm(forms.ModelForm):
@@ -61,6 +62,11 @@ class UserDetail(forms.ModelForm):
             "address",
             "license_number",
             "license_place",
+            "payment_type",
+            "credit_card_number",
+            "credit_card_name",
+            "expiry_date",
+            "cvv",
         ]
 
 
@@ -96,8 +102,11 @@ class CreateBookingForm(forms.ModelForm):
 
     depot_list = Location.objects.depots()
     vehicle_list = Car.objects.cars()
+    print(vehicle_list)
 
-    depot = forms.ChoiceField(choices=[(depot.loc_name, depot.loc_name) for depot in depot_list])
-    vehicle_type = forms.ChoiceField(choices=[(vehicle_type.car_type, vehicle_type.car_type) for vehicle_type in vehicle_list])
+    # depot = forms.ChoiceField(choices=[(depot.loc_name, depot.loc_name) for depot in depot_list])
+    # vehicle_type = forms.ChoiceField(choices=[(vehicle_type.car_type, vehicle_type.car_type) for vehicle_type in vehicle_list])
+    depot = forms.ChoiceField(choices=DEPOTS)
+    vehicle_type = forms.ChoiceField(choices=CAR_TYPE)
     start_time = forms.DateTimeField()
     end_time = forms.DateTimeField()

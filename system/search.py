@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
@@ -68,6 +68,9 @@ class CarListView(SingleTableView):
 
 
 def user_car_search(request):
+    a = UserDetails.objects.filter(first_name=request.user)
+    if not a:
+        return redirect("/customercreated/")
     new = Car.objects.order_by('-id')
     #print(new)
     #seach

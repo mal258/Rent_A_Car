@@ -32,7 +32,10 @@ urlpatterns = [
 
     url(r'^$', logout_view, name='adminIndex'),
     url(r'^listOrder/$', order_list, name = "order_list"),
-    url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
+    #url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
+    #shreyus
+    url(r'^(?P<id>\d+)/editOrder/$', update_booking, name = "update_booking"),
+
     #url(r'^(?P<id>\d+)/deleteOrder/$', order_delete, name = "order_delete"),
     #shreyus
     url(r'^(?P<id>\d+)/deleteOrder/$', delete_booking, name = "delete_booking"),

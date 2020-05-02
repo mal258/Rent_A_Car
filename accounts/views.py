@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 #from .forms import SignUpForm
-from system.models import Customer
+from system.models import UserDetails
 from django.contrib.auth.decorators import login_required
 
 
@@ -30,6 +30,9 @@ def login_view(request):
                 login(request, user)
                 return redirect("/adminhome/")
             login(request, user)
+            a = UserDetails.objects.filter(first_name=request.user)
+            if not a:
+                return redirect("/customercreated/")
             return redirect("/car/usersearch/")
     return render(request, "form.html", {"form": form1, "title": "Login"})
 

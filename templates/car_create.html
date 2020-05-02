@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %} Create Car {% endblock %}
+{% block title %} Add Car {% endblock %}
 
 {% block search %}
 {% endblock %}
@@ -24,7 +24,7 @@
 <div class ='col-sm-6 col-sm-offset-3'>
     <div class="panel panel-primary">
 <div class="list-group-item active">
-    <strong><span class="glyphicon glyphicon-film"></span> Car Create</strong>
+    <strong><span class="glyphicon glyphicon-plus"></span> Add Car </strong>
   </div><br>
 <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
       {{form|crispy}}

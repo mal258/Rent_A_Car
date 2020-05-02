@@ -15,10 +15,10 @@ TAXI_TYPES =(
 )
 
 CAR_TYPE = (
-    ('small car', 'SMALL CAR'),
-    ('full-size_car', 'FULL-SIZE CAR'),
-    ('truck', 'TRUCK'),
-    ('luxury', 'LUXURY')
+    ('SMALL CAR', 'SMALL CAR'),
+    ('FULL-SIZE CAR', 'FULL-SIZE CAR'),
+    ('TRUCK', 'TRUCK'),
+    ('LUXURY', 'LUXURY')
 )
 
 DEPOTS =(
@@ -27,5 +27,11 @@ DEPOTS =(
         ('SUNNYVALE', 'SUNNYVALE'),
 )
 
+COST_OPT = (
+           ('PER HOUR', 'PER HOUR'),
+           ('1 - 5 HOURS', '1 - 5 HOURS'),
+           ('6 - 10 HOURS', '6 - 10 HOURS'),
+           ('PER DAY', 'PER DAY'),
 
+)
 

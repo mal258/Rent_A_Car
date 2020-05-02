@@ -135,4 +135,16 @@ def return_vehicle(request, id=None):
         print("late charge of %d amount is deducted from account", late_charges)
     return HttpResponseRedirect("/car/usersearch/")
 
+def update_booking(request, id=None):
+    detail = get_object_or_404(Booking, id=id)
+    form = CreateBookingForm(request.POST or None, instance=detail)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+        "form": form,
+        "title": "Update Order"
+    }
+    return render(request, 'order_create.html', context)
 

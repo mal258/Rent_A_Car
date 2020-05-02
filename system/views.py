@@ -3,8 +3,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse , HttpResponseRedirect
 from django.db.models import Q
 import datetime
-
+from django.utils import timezone
 #from .tables import PersonTable
+from dateutil.relativedelta import relativedelta
 
 from .models import Car, Order, PrivateMsg, Location ,StartSubscribe, Customer, User, Booking
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
@@ -17,7 +18,7 @@ from .models import UserDetails
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth import (
     authenticate,
@@ -29,6 +30,8 @@ from django.contrib.auth import (
 User = get_user_model()
 #from .tables import PersonTable
 
+sf =  pytz.timezone("America/Los_Angeles")
+timezone.activate(sf)
 
 def home(request):
     context = {
@@ -172,17 +175,25 @@ def car_delete(request,id=None):
 #customer details
 
 def customer_created(request):
-    form = UserDetail(request.POST or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect("/car/usersearch/")
+    a = UserDetails.objects.filter(first_name=request.user)
+    print(a)
+    if not a:
+        form = UserDetail(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            #instance.save()
+            instance.acc = 400
+            instance.sub_start = timezone.localtime(timezone.now())
+            instance.sub_end = timezone.localtime(timezone.now()) + relativedelta(months=+6)
+            instance.save()
+            return HttpResponseRedirect("/car/usersearch/")
 
-    context = {
-        "form": form,
-        "title": "Primary Details"
-    }
-    return render(request, 'customer_details.html', context)
+        context = {
+            "form": form,
+            "title": "Enter Details and Subscribe"
+        }
+        return render(request, 'customer_details.html', context)
+    return HttpResponseRedirect("/details/")
 
 # Subscription begin
 
@@ -456,15 +467,15 @@ def PersonListView(request):
     #print(expiry_date)
     #User = get_user_model()
     print(request.user)
-    user_list = User.objects.filter(first_name=request.user)
-    profile = User.objects.get(email='test@gmail.com')
-    print(profile.userdetails.mobileno)
-    sub_list = StartSubscribe.objects.filter(first_name__icontains=request.user)
-    e = StartSubscribe.objects.get(id=1)
-    e.start_date += datetime.timedelta(days=180)
-    e.save()
+    user_list = UserDetails.objects.filter(first_name=request.user)
+    #profile = User.objects.all()
+    print(user_list)
+    # sub_list = StartSubscribe.objects.filter(first_name__icontains=request.user)
+    # e = StartSubscribe.objects.get(id=1)
+    # e.start_date += datetime.timedelta(days=180)
+    # e.save()
     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
-    return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
+    return render(request, 'user/userprofile.html', {'obj1': user_list})
 
 @login_required
 def profile(request):

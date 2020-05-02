@@ -78,7 +78,7 @@ class BookingManager(models.Manager):
         hours = days * 24 + seconds // 3600
         customer.last_name=4320
 
-        amount = vehicle.cost_per_day
+        amount = vehicle.cost
         print(amount)
 
         try:

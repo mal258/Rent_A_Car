@@ -15,7 +15,7 @@
   <a href="" class="list-group-item"><strong>From: </strong>{{detail.start_time}}</a>
   <a href="" class="list-group-item"><strong>To: </strong>{{detail.end_time}}</a>
   <div class="pull-right">
-    <a href="{% url 'order_edit' detail.id %}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Edit Booking</button></a>
+    <a href="{% url 'update_booking' detail.id %}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Edit Booking</button></a>
     <a href="{% url 'delete_booking' detail.id %}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-pencil"></span> Cancel Booking</button></a>
     <a href=""><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Print</button></a>
 

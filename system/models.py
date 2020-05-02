@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # from multiselectfield import MultiSelectField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .choices import CAR_TYPE, DEPOTS
+from .choices import CAR_TYPE, DEPOTS, COST_OPT
 from .manager import *
 
 
@@ -32,7 +32,7 @@ class Order(models.Model):
     def __str__(self):
         return self.Drivers_name
 
-    def get_absolute_url(self):
+    def     get_absolute_url(self):
         return "/car/detail/%s/" % (self.id)
 
 
@@ -63,7 +63,8 @@ class Car(models.Model):
     reg_tag = models.CharField(max_length=100)
     cur_milage = models.IntegerField()
     last_serv = models.IntegerField()
-    cost_per_day = models.CharField(max_length=50)
+    cost_opt = models.CharField(max_length=50, choices=COST_OPT)
+    cost = models.IntegerField(default=0)
     depot = models.ForeignKey(Location, on_delete=models.PROTECT, related_name='vehicle')
     zipcode = models.CharField(max_length=50)
     late_fee = models.IntegerField(default=0)
@@ -92,15 +93,23 @@ class UserDetails(models.Model):
     address = models.CharField(max_length=30)
     license_number = models.CharField(max_length=10)
     license_place = models.CharField(max_length=30)
+    payment_type = models.CharField(max_length=10)
+    credit_card_number = models.IntegerField()
+    credit_card_name = models.CharField(max_length=30)
+    expiry_date = models.DateField()
+    cvv = models.IntegerField()
+    acc = models.IntegerField(default=0)
+    sub_start = models.DateTimeField(default=0)
+    sub_end = models.DateTimeField(default=0)
 
 #    objects = CustomerManager()
 
     def __str__(self):
-        return self.first_name
+        return self.last_name
 
 #Not being used to be removed
 class Customer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     mobileno = models.IntegerField()
     birthdate = models.DateField()
     address = models.CharField(max_length=30)
