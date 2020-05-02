@@ -77,8 +77,9 @@ class BookingManager(models.Manager):
         days, seconds = td.days, td.seconds
         hours = days * 24 + seconds // 3600
         customer.last_name=4320
-        print(hours)
-        print(customer)
+
+        amount = vehicle.cost_per_day
+        print(amount)
 
         try:
             if hours > int(customer.last_name):
@@ -88,8 +89,8 @@ class BookingManager(models.Manager):
 
         customer.last_name = "{}".format(int(customer.last_name) - hours)
         customer.save()
-        print(customer)
-        return self.create(customer=customer, vehicle=vehicle, depot=depot, start_time=start_time, end_time=end_time)
+        return self.create(customer=customer, vehicle=vehicle, depot=depot, start_time=start_time, end_time=end_time,\
+                           hours=hours)
 
     def get_queryset(self):
         return BookingQuerySet(self.model, using=self._db)

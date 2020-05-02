@@ -18,14 +18,19 @@ urlpatterns = [
 
 
     url(r'^(?P<id>\d+)/$', views.car_detail, name = "car_detail"),
-    url(r'^detail/(?P<id>\d+)/$', views.order_detail, name = "order_detail"),
+    #url(r'^detail/(?P<id>\d+)/$', views.order_detail, name = "order_detail"),
+    #Shreyus
+    url(r'^detail/(?P<id>\d+)/$', booking_detail, name = "booking_detail"),
 
     url(r'^(?P<id>\d+)/delete/$', views.car_delete, name = "car_delete"),
-    url(r'^(?P<id>\d+)/deleteOrder/$', views.order_delete, name = "order_delete"),
+    #url(r'^(?P<id>\d+)/deleteOrder/$', views.order_delete, name = "order_delete"),
+    #shreyus
+    url(r'^(?P<id>\d+)/deleteOrder/$', delete_booking, name = "delete_booking"),
     url(r'^contact/$', views.contact, name = "contact"),
     url(r'^newcar/$', views.newcar, name = "newcar"),
     url(r'^car/usersearch/$', user_car_search, name = "usersearch"),
-    url(r'^(?P<customer_id>[0-9]+)/createOrder/$', create_booking2, name = "order_create"),
+    #url(r'^(?P<customer_id>[0-9]+)/createOrder/$', create_booking2, name = "order_create"),
+    url(r'^createOrder/$', create_booking2, name = "order_create"),
     url(r'^(?P<id>\d+)/like/$', views.like_update, name = "like"),
     url(r'^popularcar/$', views.popular_car, name = "popularcar"),
     url(r'^location/', views.location_list, name = "location_list"),

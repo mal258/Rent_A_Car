@@ -96,3 +96,5 @@ def user_car_search(request):
         'car': new,
     }
     return render(request, 'User/userpage.html', context)
+
+#def login_page(request):

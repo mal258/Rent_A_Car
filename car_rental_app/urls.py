@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 #     location, loc_detail,customer_created,start_subscription, admin_pge, profile
 from system.search import *
 from system.views import *
+from system.booking import *
 from accounts.views import (login_view, register_view, logout_view,register_user)
 
 urlpatterns = [
@@ -32,7 +33,9 @@ urlpatterns = [
     url(r'^$', logout_view, name='adminIndex'),
     url(r'^listOrder/$', order_list, name = "order_list"),
     url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
-    url(r'^(?P<id>\d+)/deleteOrder/$', order_delete, name = "order_delete"),
+    #url(r'^(?P<id>\d+)/deleteOrder/$', order_delete, name = "order_delete"),
+    #shreyus
+    url(r'^(?P<id>\d+)/deleteOrder/$', delete_booking, name = "delete_booking"),
     url(r'^create/', car_created, name = "car_create"),
     url(r'^message/$', admin_msg, name='message'),
     url(r'^(?P<id>\d+)/deletemsg/$', msg_delete, name = "msg_delete"),

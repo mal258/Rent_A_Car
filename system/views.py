@@ -6,7 +6,7 @@ import datetime
 
 #from .tables import PersonTable
 
-from .models import Car, Order, PrivateMsg, Location ,StartSubscribe, Customer, User
+from .models import Car, Order, PrivateMsg, Location ,StartSubscribe, Customer, User, Booking
 from .forms import CarForm, OrderForm, MessageForm, LocationForm, UserDetail, StartSubcription
 from django.contrib.auth.decorators import login_required
 
@@ -201,15 +201,15 @@ def start_subscription(request):
 
 
 #order
-
+#Shreyus
 def order_list(request):
-    order = Order.objects.all()
+    order = Booking.objects.all()
 
     query = request.GET.get('q')
     if query:
         order = order.filter(
-            Q(movie_name__icontains=query)|
-            Q(employee_name__icontains=query)
+            Q(customer__icontains=query)|
+            Q(vehicle__icontains=query)
         )
 
     # pagination
@@ -227,7 +227,7 @@ def order_list(request):
         'order': order,
     }
     print(order)
-    return render(request, 'order_list.html', context)
+    return render(request, 'admin/order_list.html', context)
 
 def order_detail(request, id=None):
     detail = get_object_or_404(Order,id=id)
@@ -458,11 +458,11 @@ def PersonListView(request):
     print(request.user)
     user_list = User.objects.filter(first_name=request.user)
     profile = User.objects.get(email='test@gmail.com')
-    print(profile.customer.mobileno)
+    print(profile.userdetails.mobileno)
     sub_list = StartSubscribe.objects.filter(first_name__icontains=request.user)
-    # e = StartSubscribe.objects.get(id=1)
-    # e.start_date += datetime.timedelta(days=180)
-    # e.save()
+    e = StartSubscribe.objects.get(id=1)
+    e.start_date += datetime.timedelta(days=180)
+    e.save()
     #print(sub_list.values("start_date")+datetime.timedelta(days=180))
     return render(request, 'user_summary.html', {'obj1': user_list,'obj2': sub_list})
 

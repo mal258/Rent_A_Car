@@ -40,8 +40,12 @@ def register_view(request):
         password = form.cleaned_data.get("password")
         user.set_password(password)
         user.save()
+#        username = form.cleaned_data['username']
+#        password = form.cleaned_data['password']
+#        user = authenticate(username=username, password=password)
+        login(request, user)
 
-        return redirect("/login/")
+        return redirect("/customercreated/")
     context = {
         "title" : "Registration",
         "form": form,

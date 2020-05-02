@@ -98,9 +98,9 @@ class UserDetails(models.Model):
     def __str__(self):
         return self.first_name
 
-
+#Not being used to be removed
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     mobileno = models.IntegerField()
     birthdate = models.DateField()
     address = models.CharField(max_length=30)
@@ -110,7 +110,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return str(self.user)
-#
+
 #
 # # @receiver(post_save, sender=User)
 # # def update_user_profile(sender, instance, created, **kwargs):
@@ -127,6 +127,7 @@ class StartSubscribe(models.Model):
     credit_card_name = models.CharField(max_length=30)
     expiry_date = models.DateField()
     cvv = models.IntegerField()
+    acc = models.IntegerField()
 
     def __str__(self):
         return self.credit_card_number
@@ -139,6 +140,9 @@ class Booking(models.Model):
 
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
+    status = models.CharField(max_length=50)
+    user_tran = models.IntegerField(default=0)
+    hours = models.IntegerField(default=0)
 
     objects = BookingManager()
 
@@ -148,3 +152,12 @@ class Booking(models.Model):
 
 #   def get_absolute_url(self):
 #      return "/car/detail/%s/" % (self.id)
+    def get_absolute_url(self):
+        return "/car/detail/%s/" % (self.id)
+
+class Transaction(models.Model):
+    user_account = models.IntegerField()
+    company_account = models.IntegerField()
+
+    def __str__(self):
+        return "{}\n{}\n{}\n{}\n{}".format(self.user_account, self.company_account)
