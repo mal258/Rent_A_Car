@@ -1,32 +1,52 @@
-{% extends 'base.html' %}
+
+{% load static %}
+
 {% load crispy_forms_tags %}
+<body>
+<head>
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-{% block title %} {{title}} {% endblock %}
+ <!--Carousel-->
 
-{% block search %}
 
-{% endblock %}
-{% block nav %}
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-<!--        <li><a href="{% url 'car_list' %}"><span class="glyphicon glyphicon-list"></span> Car List</a></li>-->
-<!--          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-share"></span> Login</a></li>-->
-<!--        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>-->
 
-      </ul>
-    </div>
-{% endblock %}
-{% block body %}
-<div class ='col-sm-5 col-sm-offset-3'>
-    <h1>{{ title }}</h1><hr>
 
-    <form method="POST" action="">{% csrf_token %}
+</head>
+
+<div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Sign In</h3>
+
+<form method="POST" action="">{% csrf_token %}
       {{form|crispy}}
         <div class="pull-right">
             <input type="submit" class="btn btn-primary" value="{{ title }}"/>
         </div>
 
+
 </form>
+            </div>
+
+
+
+
+                <div class="col-md-6 login-form-2">
+                    <form>
+
+
+
+
+                    </form>
+                </div>
+
+
 </div>
-{% endblock %}
+
+</div>
+
+
+</body>
