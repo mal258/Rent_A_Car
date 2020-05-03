@@ -10,7 +10,7 @@ from .manager import *
 
 
 def uploaded_location(instance, filename):
-    return ("%s/%s") % (instance.car_name, filename)
+    return ("%s/%s") % (instance.make, filename)
 
 
 # CAR_TYPE = (
@@ -57,9 +57,9 @@ class Location(models.Model):
 
 class Car(models.Model):
     image = models.ImageField(upload_to=uploaded_location, null=True, blank=True)
-    car_name = models.CharField(max_length=100)
+    make = models.CharField(max_length=100)
     car_type = models.CharField(max_length=50, choices=CAR_TYPE)
-    model = models.IntegerField()
+    year = models.CharField(max_length=50)
     reg_tag = models.CharField(max_length=100)
     cur_milage = models.IntegerField()
     last_serv = models.IntegerField()
@@ -69,6 +69,7 @@ class Car(models.Model):
     zipcode = models.CharField(max_length=50)
     late_fee = models.IntegerField(default=0)
     booking_status = models.CharField(max_length=50, default='available')
+    subscription_charge = models.IntegerField(default=0)
 
     class vehicle(models.TextChoices):
         Good = 'Good'
@@ -79,7 +80,7 @@ class Car(models.Model):
     objects = CarManager()
 
     def __str__(self):
-        return self.car_name
+        return self.make
 
     def get_absolute_url(self):
         return "/car/%s/" % (self.id)
@@ -156,7 +157,7 @@ class Booking(models.Model):
     objects = BookingManager()
 
     def __str__(self):
-        return "{}\n{}\n{}\n{}\n{}".format(self.customer.first_name, self.vehicle.car_name, self.depot.loc_name,
+        return "{}\n{}\n{}\n{}\n{}".format(self.customer.first_name, self.vehicle.make, self.depot.loc_name,
                                            self.start_time, self.end_time)
 
 #   def get_absolute_url(self):

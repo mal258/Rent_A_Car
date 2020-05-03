@@ -40,11 +40,17 @@ urlpatterns = [
     #shreyus
     url(r'^(?P<id>\d+)/deleteOrder/$', delete_booking, name = "delete_booking"),
     url(r'^create/', car_created, name = "car_create"),
-    url(r'^message/$', admin_msg, name='message'),
+    #url(r'^message/$', admin_msg, name='message'),
+    #shreyus
+    url(r'^message/$', customer_list, name='message'),
+    #shreyus
+    url(r'^(?P<id>\d+)/deleteCust/$', cust_sub_term, name = "customer_termination"),
     url(r'^(?P<id>\d+)/deletemsg/$', msg_delete, name = "msg_delete"),
     url(r'^car/', include('system.urls')),
     url(r'^login/', login_view, name='login'),
     url(r'^car/usersearch/$', user_car_search, name = "usersearch"),
+    #shreyus
+    url(r'^car/acar/$', available_cars, name = "available_cars"),
     url(r'^car/car_loc_search1/$', car_loc_search1, name = "car_loc_search1"),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^register/', register_view, name='register'),

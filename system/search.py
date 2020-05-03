@@ -78,10 +78,10 @@ def user_car_search(request):
     #print(query)
     if query:
         new = new.filter(
-            Q(car_name__icontains=query) |
+            Q(make__icontains=query) |
             Q(car_type__icontains=query) |
             Q(vehicle_cond__icontains=query) |
-            Q(cost_per_day__icontains=query)
+            Q(cost__icontains=query)
         )
 
     # pagination
@@ -100,4 +100,32 @@ def user_car_search(request):
     }
     return render(request, 'User/userpage.html', context)
 
-#def login_page(request):
+def available_cars(request):
+    new = Car.objects.filter(booking_status='available')
+    print(new)
+    #seach
+    query = request.GET.get('q')
+    #print(query)
+    if query:
+        new = new.filter(
+            Q(make__icontains=query) |
+            Q(car_type__icontains=query) |
+            Q(vehicle_cond__icontains=query) |
+            Q(cost__icontains=query)
+        )
+
+    # pagination
+    paginator = Paginator(new, 12)  # Show 15 contacts per page
+    page = request.GET.get('page')
+    try:
+        new = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        new = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        new = paginator.page(paginator.num_pages)
+    context = {
+        'car': new,
+    }
+    return render(request, 'User/availablecars.html', context)
