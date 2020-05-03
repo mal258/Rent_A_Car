@@ -18,7 +18,7 @@
                 <img src='{{ ob.image.url }}' class="img-responsive"/>
             {% endif %}
           <div class="caption">
-            <strong>{{ ob.car_name }}</strong>
+            <strong>{{ ob.make }}</strong>
             <p> Car Type: {{ ob.car_type }}<br>
                 Cost Per Day: {{ ob.cost_per_day }} Dollars<br>
             </p>
@@ -52,7 +52,7 @@
           Page {{ car.number }} of {{ car.paginator.num_pages }}.
 
     </li>
-    <li class="next">{% if movie.has_next %}
+    <li class="next">{% if car.has_next %}
             <a href="?page={{ car.next_page_number }}" style="background-color:#1aa3ff !important; color: white !important;">
         Next <span aria-hidden="true">&rarr;</span></a>{% endif %}</li>
   </ul>

@@ -5,10 +5,16 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+import pytz
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import *
 from .forms import *
 from .manager import *
+
+def sf_time():
+    sf =  pytz.timezone("America/Los_Angeles")
+    timezone.activate(sf)
 
 def is_user(request, customer_id):
     current_customer = User.objects.get(id=customer_id)
@@ -53,9 +59,6 @@ def booking_detail(request, id=None):
 @login_required
 @csrf_exempt
 def create_booking2(request):
-#    print(customer_id)
-#    is_user(request, customer_id)
-
     if request.method == 'POST':
         form = CreateBookingForm(request.POST)
         if form.is_valid():
@@ -78,10 +81,9 @@ def create_booking2(request):
                     break
 
                 for booking in bookings:
+                    print(booking)
                     b_start = booking.start_time - datetime.timedelta(days=2)
                     b_end = booking.end_time + datetime.timedelta(days=2)
-#                    print(b_start)
-#                    print(b_end)
 
                     if (start_time > b_end) or (end_time < b_start):
                         v = item
@@ -89,15 +91,16 @@ def create_booking2(request):
                 if v:
                     break
 
-
-
             #v = item
             if not v:
                 print("currently the vehicle is unavailable")
-                return HttpResponseRedirect("/car/usersearch/")
+                return HttpResponseRedirect("/car/acar/")
             v_status = v.booking_status
             print(v_status)
             b = Booking.objects.create_booking(customer, v, d[0], start_time, end_time)
+            if b == 1:
+                print("Please book for less than 72 hours")
+                return HttpResponseRedirect("/car/usersearch")
             print("this is b")
             print(b)
             b.save()
@@ -111,8 +114,11 @@ def create_booking2(request):
 
 def delete_booking(request,id=None):
     query = get_object_or_404(Booking,id = id)
+    customer = request.user
+    sf_time()
     t_start = query.start_time
     now = timezone.localtime(timezone.now())
+    print(now)
     td = t_start - now
     days, seconds = td.days, td.seconds
     hours = days * 24 + seconds // 3600
@@ -120,11 +126,16 @@ def delete_booking(request,id=None):
     hours = hours*60
     if (hours < 60):
         print("deduct the amount")
+    else:
+        print("amount refunded")
+    v = query.vehicle
+    Car.objects.update_status(v)
     query.delete()
     return HttpResponseRedirect("/car/usersearch/")
 
 def return_vehicle(request, id=None):
     query = get_object_or_404(Booking, id=id)
+    sf_time()
     t_end = query.end_time
     now = timezone.localtime(timezone.now())
     if (now > t_end):
@@ -133,7 +144,11 @@ def return_vehicle(request, id=None):
         hours = days * 24 + seconds // 3600
         late_charges = hours * 5
         print("late charge of %d amount is deducted from account", late_charges)
-    return HttpResponseRedirect("/car/usersearch/")
+    v = query.vehicle
+    Car.objects.update_status(v)
+    query.delete()
+    #return HttpResponseRedirect("/car/usersearch/")
+    return render(request, 'User/return_car.html')
 
 def update_booking(request, id=None):
     detail = get_object_or_404(Booking, id=id)
@@ -147,4 +162,70 @@ def update_booking(request, id=None):
         "title": "Update Order"
     }
     return render(request, 'order_create.html', context)
+
+def customer_list(request):
+    c_list = UserDetails.objects.all()
+    print(c_list)
+
+    query = request.GET.get('q')
+    if query:
+        c_list = c_list.filter(
+            Q(first_name__icontains=query)|
+            Q(last_name__icontains=query)
+        )
+
+    # pagination
+    paginator = Paginator(c_list, 4)  # Show 15 contacts per page
+    page = request.GET.get('page')
+    try:
+        order = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        order = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        order = paginator.page(paginator.num_pages)
+    context = {
+        'c_list': c_list,
+    }
+    print(c_list)
+    return render(request, 'admin/admin_cust_view.html', context)
+
+def cust_sub_term(request, id=None):
+    query = get_object_or_404(UserDetails, id=id)
+    query.delete()
+    return HttpResponseRedirect("/message/")
+
+def cust_booking1 (request):
+    detail = get_object_or_404(Booking,customer=request.user)
+    context = {
+        "detail": detail,
+    }
+    return render(request, 'User/bookingdetails.html', context)
+
+def cust_booking (request):
+    c_book = Booking.objects.filter(customer=request.user)
+    query = request.GET.get('q')
+    if query:
+        c_book = c_book.filter(
+            Q(first_name__icontains=query)|
+            Q(last_name__icontains=query)
+        )
+
+    # pagination
+    paginator = Paginator(c_book, 4)  # Show 15 contacts per page
+    page = request.GET.get('page')
+    try:
+        order = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        order = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        order = paginator.page(paginator.num_pages)
+    context = {
+        'c_book': c_book,
+    }
+    #print(c_book)
+    return render(request, 'User/mybooking.html', context)
 

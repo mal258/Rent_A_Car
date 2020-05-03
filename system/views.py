@@ -46,7 +46,7 @@ def car_list(request):
     query = request.GET.get('q')
     if query:
         car = car.filter(
-                     Q(car_name__icontains=query) |
+                     Q(make__icontains=query) |
                      Q(company_name__icontains = query) |
                      Q(num_of_seats__icontains=query) |
                      Q(cost_per_day__icontains=query)
@@ -285,7 +285,7 @@ def newcar(request):
     query = request.GET.get('q')
     if query:
         new = new.filter(
-            Q(car_name__icontains=query) |
+            Q(make__icontains=query) |
             Q(car_type__icontains=query) |
             Q(vehicle_cond__icontains=query) |
             Q(cost_per_day__icontains=query)
@@ -323,7 +323,7 @@ def popular_car(request):
     query = request.GET.get('q')
     if query:
         new = new.filter(
-            Q(car_name__icontains=query) |
+            Q(make__icontains=query) |
             Q(company_name__icontains=query) |
             Q(num_of_seats__icontains=query) |
             Q(cost_per_day__icontains=query)
@@ -367,7 +367,7 @@ def admin_car_list(request):
     query = request.GET.get('q')
     if query:
         car = car.filter(
-            Q(car_name__icontains=query) |
+            Q(make__icontains=query) |
             Q(car_type__icontains=query) |
             Q(num_of_seats__icontains=query) |
             Q(cost_per_day__icontains=query)

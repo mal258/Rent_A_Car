@@ -28,10 +28,14 @@ DEPOTS =(
 )
 
 COST_OPT = (
-           ('PER HOUR', 'PER HOUR'),
-           ('1 - 5 HOURS', '1 - 5 HOURS'),
-           ('6 - 10 HOURS', '6 - 10 HOURS'),
-           ('PER DAY', 'PER DAY'),
+           ('PER-HOUR', 'PER-HOUR'),
+           ('1-5H', '1-5H'),
+           ('6-10H', '6-10H'),
+           ('PER-DAY', 'PER-DAY'),
 
 )
 
+BOOKING_STAT = (
+                ( 'available', 'available'),
+                ('booked', 'booked'),
+)

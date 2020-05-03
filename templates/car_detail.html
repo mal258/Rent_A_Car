@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Detail of {{detail.car_name}} {% endblock %}
+{% block title %} Detail of {{detail.make}} {% endblock %}
 
 {% block body %}
 
@@ -15,7 +15,7 @@
   {% if detail.image %}
   <img src='{{ detail.image.url }}' class="img-responsive"/>
   {% endif %}
-  <a href="" class="list-group-item"><strong>Car Name: </strong>{{detail.car_name}}</a>
+  <a href="" class="list-group-item"><strong>Car Name: </strong>{{detail.make}}</a>
   <a href="" class="list-group-item"><strong>Company Name   : </strong>{{detail.company_name}}</a>
   <a href="" class="list-group-item"><strong>Num Of Seat   : </strong>{{detail.num_of_seats}}</a>
   <a href="" class="list-group-item"><strong>Cost Per Day   : </strong>{{detail.cost_per_day}}</a>

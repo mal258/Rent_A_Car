@@ -39,6 +39,10 @@ class CarManager(models.Manager):
     def create_vehicle(self, depot, car_type):
         return self.create(depot=depot, car_type=car_type)
 
+    def update_status(self, vehicle):
+        vehicle.booking_status = 'available'
+        vehicle.save()
+
     def get_queryset(self):
         return CarQuerySet(self.model, using=self._db)
 
@@ -78,7 +82,24 @@ class BookingManager(models.Manager):
         hours = days * 24 + seconds // 3600
         customer.last_name=4320
 
-        amount = vehicle.cost
+        if hours > 72:
+            return 1
+
+        cost_opt = vehicle.cost_opt
+        cost  = vehicle.cost
+        if cost_opt == "PER-HOUR":
+            amount = cost * hours
+        elif cost_opt == "1-5H":
+            hours = hours/5
+            amount = cost * hours
+        elif cost_opt == "6-10H":
+            hours = hours/10
+            amount = hours * cost
+        else:
+            hours = hours/24
+            amount = hours * cost
+
+        print(cost_opt)
         print(amount)
 
         try:
@@ -89,6 +110,8 @@ class BookingManager(models.Manager):
 
         customer.last_name = "{}".format(int(customer.last_name) - hours)
         customer.save()
+        vehicle.booking_status = 'booked'
+        vehicle.save()
         return self.create(customer=customer, vehicle=vehicle, depot=depot, start_time=start_time, end_time=end_time,\
                            hours=hours)
 
