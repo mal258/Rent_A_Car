@@ -27,10 +27,11 @@ from system.booking import *
 from accounts.views import (login_view, register_view, logout_view,register_user)
 
 urlpatterns = [
+    url(r'^$', login_view, name="home"),
     url(r'^admin/', admin.site.urls),
     #url(r'^$', admin_car_list, name='adminIndex'),
 
-    url(r'^$', logout_view, name='adminIndex'),
+
     url(r'^listOrder/$', order_list, name = "order_list"),
     #url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
     #shreyus
@@ -52,7 +53,7 @@ urlpatterns = [
     #shreyus
     url(r'^car/acar/$', available_cars, name = "available_cars"),
     url(r'^car/car_loc_search1/$', car_loc_search1, name = "car_loc_search1"),
-    url(r'^logout/', logout_view, name='logout'),
+    url(r'^logout/', login_view, name='home'),
     url(r'^register/', register_view, name='register'),
     #url(r'^register/', register_user, name='register'),
     url(r'^location/', location_list, name = "location_list"),

@@ -94,6 +94,7 @@ class DeleteUser(forms.ModelForm):
         ]
 
 
+
 class CreateBookingForm(forms.ModelForm):
     class Meta:
         model = Booking

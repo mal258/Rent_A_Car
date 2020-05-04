@@ -4,10 +4,12 @@ from system import views
 from . import views
 from system.booking import *
 from .search import *
+from accounts.views import login_view
 from system import search
 
 urlpatterns = [
-    url(r'^$', views.home, name = "home"),
+
+    url(r'^$', login_view, name="login"),
     url(r'^carlist/$', views.car_list, name="car_list"),
 
     #url(r'^carlist/$', system.views.car_list, name = "car_list"),

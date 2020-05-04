@@ -1,12 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}  Newly Added car {% endblock %}
 
-{% block nav %}
-        <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-        <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-envelope"></span> My booking</a></li>
-        <li><a href="{% url 'customercreated' %}"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
-{% endblock %}
 {% block body %}
     <div class="container" style="margin-top: 15px;">
     <div class="row">
