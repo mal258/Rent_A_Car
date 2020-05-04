@@ -24,12 +24,14 @@
         <span class="glyphicon glyphicon-align-justify"></span>
 
       </button>
-      <div class="navbar-brand"><span class="glyphicon glyphicon-leaf"></span> Rent a Car</div>
+      <li><a class="navbar-brand" href="{% url 'usersearch' %}"><span class="glyphicon glyphicon-road"></span> Rent-a-Ride</a></li>
+
 
 
     </div>
 
       <div class="collapse navbar-collapse" id="myNavbar">
+
       <ul class="nav navbar-nav navbar-right">
          <li>
              {% block search %}
@@ -37,17 +39,29 @@
 
       <form method="GET" class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Car Search" value="{{request.GET.q}}" name="q">
+          <input type="text" class="form-control" size="10"     placeholder="Search by Car" value="{{request.GET.q}}" name="q">
+        </div>
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
+      </form>
+
+            <!-- search box-->
+
+      <form action="{% url 'car_loc_search1' %}" method="GET" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" size="15" placeholder="Search by Location" value="{{request.GET.q}}" name="q">
         </div>
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
       </form>
     {% endblock %}
 
+
+
 {% block nav %}
-       <li><a href="{% url 'newcar' %}"><span class="glyphicon glyphicon-align-justify"></span> Newly Added Car</a></li>
-      <!--  <li><a href="{% url 'popularcar' %}"><span class="glyphicon glyphicon-star"></span> Popular car</a></li> -->
-        <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout</a></li>
+
+        <li><a href="{% url 'contact' %}"><span class="glyphicon glyphicon-list-alt"></span> My bookings</a></li>
+        <li><a href="{% url 'customercreated' %}"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-out"></span> Logout&nbsp;     {{request.user.username}}</a></li>
 {% endblock %}
       </ul>
     </div>

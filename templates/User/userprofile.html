@@ -4,16 +4,7 @@
 
 {% block title %} Personal Details {% endblock %}
 
-{% block nav %}
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'usersearch' %}"><span class="glyphicon glyphicon-align-justify"></span> Home </a></li>
-          <li><a href="{% url 'details' %}"><span class="glyphicon glyphicon-align-justify"></span> Account Summary </a></li>
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
-          {% endblock %}
-
 {% block body %}
-
 
 <div class ='col-sm-6 col-sm-offset-3'>
 
@@ -39,4 +30,5 @@
       </div>
             </div>
 {% endfor %}
+
 {% endblock %}

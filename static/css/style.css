@@ -6,7 +6,7 @@ body{
 }
 .navbar {
       margin-bottom: 35px !important;
-      background-color: red;
+      background-color:#00b39f ;
       z-index: 9999;
       border: 0;
       font-size: 14px !important;
@@ -26,8 +26,10 @@ body{
       border-color: transparent;
       color: #fff !important;
   }
+
+
   .navbar-custom{
-    background-color: #b30000 !important;
+    background-color: #00b39f !important;
   }
   .navbar-fixed-top {
     position: relative!important;

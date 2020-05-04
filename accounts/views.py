@@ -18,6 +18,7 @@ from .forms import UserLoginForm, UserRegisterForm
 #User = get_user_model()
 
 def login_view(request):
+    logout(request)
     form1 = UserLoginForm(request.POST or None)
 
     if form1.is_valid():
@@ -28,7 +29,8 @@ def login_view(request):
         if not request.user.is_staff:
             if user1.is_staff:
                 login(request, user)
-                return redirect("/adminhome/")
+
+                return redirect("/admincarlist/")
             login(request, user)
             a = UserDetails.objects.filter(first_name=request.user)
             if not a:
@@ -57,7 +59,8 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, "home.html", {})
+    form1 = UserLoginForm(request.POST or None)
+    return render(request, "form.html", {"form": form1, "title": "Login"})
 
 
 def register_user(request):
