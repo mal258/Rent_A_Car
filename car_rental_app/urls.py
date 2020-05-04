@@ -45,6 +45,8 @@ urlpatterns = [
     url(r'^message/$', customer_list, name='message'),
     #shreyus
     url(r'^(?P<id>\d+)/deleteCust/$', cust_sub_term, name = "customer_termination"),
+    url(r'^(?P<id>\d+)/endsub/$', end_subscription, name = "end_sub"),
+    url(r'^(?P<id>\d+)/modprofile/$', modify_profile, name = "modify_profile"),
     url(r'^(?P<id>\d+)/deletemsg/$', msg_delete, name = "msg_delete"),
     url(r'^car/', include('system.urls')),
     url(r'^login/', login_view, name='login'),

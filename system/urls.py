@@ -26,7 +26,8 @@ urlpatterns = [
     #url(r'^(?P<id>\d+)/deleteOrder/$', views.order_delete, name = "order_delete"),
     #shreyus
     url(r'^(?P<id>\d+)/deleteOrder/$', delete_booking, name = "delete_booking"),
-    #url(r'^contact/$', views.contact, name = "contact"),
+    #url(r'^subextend/$', cust_booking, name = "contact"),
+    url(r'^(?P<id>\d+)/modify/$', modify_subscription, name = "modify_subscription"),
     #shreyus
     url(r'^contact/$', cust_booking, name = "contact"),
     url(r'^(?P<id>\d+)/returnveh/$', return_vehicle, name = "return_vehicle"),

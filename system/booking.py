@@ -1,6 +1,7 @@
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse , HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -196,12 +197,12 @@ def cust_sub_term(request, id=None):
     query.delete()
     return HttpResponseRedirect("/message/")
 
-def cust_booking1 (request):
-    detail = get_object_or_404(Booking,customer=request.user)
-    context = {
-        "detail": detail,
-    }
-    return render(request, 'User/bookingdetails.html', context)
+# def cust_booking1 (request):
+#     detail = get_object_or_404(Booking,customer=request.user)
+#     context = {
+#         "detail": detail,
+#     }
+#     return render(request, 'User/bookingdetails.html', context)
 
 def cust_booking (request):
     c_book = Booking.objects.filter(customer=request.user)
@@ -229,3 +230,33 @@ def cust_booking (request):
     #print(c_book)
     return render(request, 'User/mybooking.html', context)
 
+def modify_subscription(request, id=None):
+    detail = get_object_or_404(UserDetails,id=id)
+    #detail = UserDetails.objects.filter(first_name=request.user)
+    print("inside modify")
+    print(detail.sub_end)
+    context = {
+        "detail": detail
+    }
+    return render(request, 'car_detail.html', context)
+
+def modify_profile(request, id=None):
+    sf_time()
+    detail = get_object_or_404(UserDetails, id=id)
+    form = UserDetail(request.POST or None, instance=detail)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect("/details/")
+
+    context = {
+        "form": form,
+        "title": "Modify Profile"
+    }
+    return render(request, 'User/modifyprofile.html', context)
+#return HttpResponseRedirect("/details/")
+
+def end_subscription(request, id=None):
+    query = get_object_or_404(UserDetails, id=id)
+    query.delete()
+    return redirect("/car/usersearch/")

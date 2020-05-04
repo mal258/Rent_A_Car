@@ -24,6 +24,7 @@
     <div class="row">
         {% for ob in obj1 %}
    <a href="" class="list-group-item"><strong>Name:             </strong>{{ob.first_name}}</a>
+   <a href="" class="list-group-item"><strong>Last Name:             </strong>{{ob.last_name}}</a>
   <a href="" class="list-group-item"><strong>Address:           </strong>{{ob.address}}</a>
   <a href="" class="list-group-item"><strong>Mobile:            </strong>{{ob.mobileno}}</a>
   <a href="" class="list-group-item"><strong>License Plate:     </strong>{{ob.license_place}}</a>
@@ -32,9 +33,10 @@
   <a href="" class="list-group-item"><strong>Subscrition Start: </strong>{{ob.sub_start}}</a>
   <a href="" class="list-group-item"><strong>Subscrition End:   </strong>{{ob.sub_end}}</a>
 
-            <a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Modify</a>
-                <a href="{% url 'order_create' %}" class="btn btn-danger" role="button">Cancel</a></p>
+            <a href="{% url 'modify_profile' ob.id %}" class="btn btn-primary" role="button">Modify</a>
+                <a href="{% url 'end_sub' ob.id %}" class="btn btn-danger" role="button">Cancel</a></p>
 </div>
       </div>
+            </div>
 {% endfor %}
 {% endblock %}

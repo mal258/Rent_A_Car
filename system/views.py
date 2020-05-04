@@ -176,7 +176,6 @@ def car_delete(request,id=None):
 
 def customer_created(request):
     a = UserDetails.objects.filter(first_name=request.user)
-    print(a)
     if not a:
         form = UserDetail(request.POST or None)
         if form.is_valid():
