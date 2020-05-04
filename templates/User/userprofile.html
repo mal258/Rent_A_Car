@@ -6,27 +6,28 @@
 
 {% block body %}
 
-<div class ='col-sm-6 col-sm-offset-3'>
+
+    <div class ='col-sm-6 col-sm-offset-3'>
 
   <p class="list-group-item active">
     <strong><span class="glyphicon glyphicon-book"></span> Account Summary</strong>
   </p>
-  <div class="container" style="margin-top: 15px;">
-    <div class="row">
-        {% for ob in obj1 %}
-   <a href="" class="list-group-item"><strong>Name:             </strong>{{ob.first_name}}</a>
-  <a href="" class="list-group-item"><strong>Address:           </strong>{{ob.address}}</a>
-  <a href="" class="list-group-item"><strong>Mobile:            </strong>{{ob.mobileno}}</a>
-  <a href="" class="list-group-item"><strong>License Plate:     </strong>{{ob.license_place}}</a>
-  <a href="" class="list-group-item"><strong>Pay Type:          </strong>{{ob.payment_type}}</a>
-  <a href="" class="list-group-item"><strong>License Number:    </strong>{{ob.license_number}}</a>
-  <a href="" class="list-group-item"><strong>Subscrition Start: </strong>{{ob.sub_start}}</a>
-  <a href="" class="list-group-item"><strong>Subscrition End:   </strong>{{ob.sub_end}}</a>
+   <div class="row">
+{% for ob in obj1 %}
+   <div class="list-group-item"><strong>Name:             </strong>{{ob.first_name}}</div>
+  <div class="list-group-item"><strong>Address:           </strong>{{ob.address}}</div>
+  <div class="list-group-item"><strong>Mobile:            </strong>{{ob.mobileno}}</div>
+  <div class="list-group-item"><strong>License Plate:     </strong>{{ob.license_place}}</div>
+  <div class="list-group-item"><strong>Pay Type:          </strong>{{ob.payment_type}}</div>
+  <div class="list-group-item"><strong>License Number:    </strong>{{ob.license_number}}</div>
+  <div class="list-group-item"><strong>Subscription Start: </strong>{{ob.sub_start}}</div>
+  <div class="list-group-item"><strong>Subscription End:   </strong>{{ob.sub_end}}</div>
 
             <a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Modify</a>
                 <a href="{% url 'order_create' %}" class="btn btn-danger" role="button">Cancel</a></p>
-</div>
-      </div>
+
 {% endfor %}
+</div>
+</div>
 
 {% endblock %}

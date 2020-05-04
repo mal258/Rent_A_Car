@@ -12,11 +12,13 @@
           <div class="caption">
             <strong>{{ ob.make }}</strong>
             <p> Car Type: {{ ob.car_type }}<br>
-                Cost Per Day: {{ ob.cost_per_day }} Dollars<br>
+                Cost Type: {{ ob.cost_opt }}<br>
+                Cost Per Day: ${{ ob.cost }}<br>
+
             </p>
               <div class="pull-right">
             <p>
-                <a href="{% url 'like' ob.id %}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+
                 <a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Detail</a>
                 <a href="{% url 'order_create' %}" class="btn btn-danger" role="button">Book</a></p>
               </div>
