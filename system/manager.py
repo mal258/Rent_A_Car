@@ -113,7 +113,7 @@ class BookingManager(models.Manager):
         vehicle.booking_status = 'booked'
         vehicle.save()
         return self.create(customer=customer, vehicle=vehicle, depot=depot, start_time=start_time, end_time=end_time,\
-                           hours=hours)
+                           hours=hours, user_tran=amount)
 
     def get_queryset(self):
         return BookingQuerySet(self.model, using=self._db)

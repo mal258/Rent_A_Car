@@ -65,6 +65,7 @@ def create_booking2(request, id=None):
     query = get_object_or_404(Car,id = id)
     #query = Car.objects.get(make=)
     print(query.car_type)
+    sf_time()
 
     if request.method == 'POST':
         form = CreateBookingForm(request.POST)
@@ -80,6 +81,7 @@ def create_booking2(request, id=None):
             start_time = form.cleaned_data['start_time']
             end_time = form.cleaned_data['end_time']
 
+            print("start time", start_time)
             d = Location.objects.depots(depot)
             vehicle = Car.objects.cars(d[0], vehicle_type)
             print(vehicle)
