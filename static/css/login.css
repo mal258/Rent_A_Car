@@ -1,3 +1,7 @@
+body{
+  background:url('https://images.trvl-media.com/media/content/expus/graphics/launch/home/tvly/150324_cars-hero-image_1330x742.jpg');
+}
+
 .login-container{
     margin-top: 5%;
     margin-bottom: 5%;
@@ -51,4 +55,22 @@
     color: #0062cc;
     font-weight: 600;
     text-decoration: none;
+}
+
+
+
+body, html {
+  height: 100%;
+}
+.bg {
+  /* The image used */
+  background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
