@@ -122,17 +122,12 @@ def create_booking2(request, id=None):
             #return render(request, 'order_create.html')
             if valid == "true":
                 b = Booking.objects.create_booking(customer, v, d[0], start_time, end_time)
-                b.save()
-                return HttpResponseRedirect(b.get_absolute_url())
-
-          #  if b == 1 or b == 0:
-           #     print("Please book for less than 72 hours")
-            #    valid = "false"
-             #   return HttpResponseRedirect("/car/usersearch")
-
-
-
-
+                if b == 1 or b == 0:
+                    print("Please book for less than 72 hours")
+                    valid = "false"
+                else:
+                    b.save()
+                    return HttpResponseRedirect(b.get_absolute_url())
     else:
         form = CreateBookingForm()
     return render(request, 'order_create.html', {"form":form, "query":query,"valid":valid})
