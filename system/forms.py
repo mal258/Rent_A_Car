@@ -3,6 +3,8 @@ from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscrib
 from django.contrib.auth import get_user_model
 from .manager import *
 from .choices import DEPOTS, CAR_TYPE
+from django.utils import timezone
+import pytz
 
 User = get_user_model()
 
@@ -94,6 +96,9 @@ class DeleteUser(forms.ModelForm):
         ]
 
 
+def sf_time():
+    sf = pytz.timezone("America/Los_Angeles")
+    timezone.activate(sf)
 
 class CreateBookingForm(forms.ModelForm):
     class Meta:
@@ -104,6 +109,7 @@ class CreateBookingForm(forms.ModelForm):
     depot_list = Location.objects.depots()
     vehicle_list = Car.objects.cars()
     print(vehicle_list)
+    sf_time()
 
     # depot = forms.ChoiceField(choices=[(depot.loc_name, depot.loc_name) for depot in depot_list])
     # vehicle_type = forms.ChoiceField(choices=[(vehicle_type.car_type, vehicle_type.car_type) for vehicle_type in vehicle_list])
@@ -112,3 +118,7 @@ class CreateBookingForm(forms.ModelForm):
     vehicle_type = forms.ChoiceField(choices=CAR_TYPE)
     start_time = forms.DateTimeField()
     end_time = forms.DateTimeField()
+
+
+
+

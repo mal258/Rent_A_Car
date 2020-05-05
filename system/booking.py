@@ -62,10 +62,12 @@ def booking_detail(request, id=None):
 @login_required
 @csrf_exempt
 def create_booking2(request, id=None):
+    sf_time()
     query = get_object_or_404(Car,id = id)
+    valid = "true"
     #query = Car.objects.get(make=)
     print(query.car_type)
-
+    print("valid original value",valid)
     if request.method == 'POST':
         form = CreateBookingForm(request.POST)
         form.depot = query.depot
@@ -80,7 +82,16 @@ def create_booking2(request, id=None):
             start_time = form.cleaned_data['start_time']
             end_time = form.cleaned_data['end_time']
 
+
+            now = timezone.localtime(timezone.now())
+            print("printing now",now)
+            print("printing start time",start_time)
+            if start_time<now:
+                print("start is less than now")
+                valid="false"
+
             d = Location.objects.depots(depot)
+
             vehicle = Car.objects.cars(d[0], vehicle_type)
             print(vehicle)
             v = 0
@@ -106,22 +117,25 @@ def create_booking2(request, id=None):
             if not v:
                 print("currently the vehicle is unavailable")
                 return HttpResponseRedirect("/car/acar/")
-            v_status = v.booking_status
-            print(v_status)
-            b = Booking.objects.create_booking(customer, v, d[0], start_time, end_time)
-            if b == 1 or b == 0:
-                print("Please book for less than 72 hours")
-                return HttpResponseRedirect("/car/usersearch")
-            print("this is b")
-            print(b)
-            b.save()
+
 #            print(b)
             #return render(request, 'order_create.html')
-            return HttpResponseRedirect(b.get_absolute_url())
+            if valid == "true":
+                b = Booking.objects.create_booking(customer, v, d[0], start_time, end_time)
+                b.save()
+                return HttpResponseRedirect(b.get_absolute_url())
+
+          #  if b == 1 or b == 0:
+           #     print("Please book for less than 72 hours")
+            #    valid = "false"
+             #   return HttpResponseRedirect("/car/usersearch")
+
+
+
 
     else:
         form = CreateBookingForm()
-    return render(request, 'order_create.html', {'form' :form})
+    return render(request, 'order_create.html', {"form":form, "query":query,"valid":valid})
 
 def delete_booking(request,id=None):
     query = get_object_or_404(Booking,id = id)
@@ -271,3 +285,9 @@ def end_subscription(request, id=None):
     query = get_object_or_404(UserDetails, id=id)
     query.delete()
     return redirect("/car/usersearch/")
+
+
+def pay_booking(request, id=None):
+    detail = get_object_or_404(Booking, id=id)
+
+    return render(request, 'User/pay_booking.html', {"detail":detail})
