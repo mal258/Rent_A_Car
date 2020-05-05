@@ -49,9 +49,9 @@ def car_list(request):
     if query:
         car = car.filter(
                      Q(make__icontains=query) |
-                     Q(company_name__icontains = query) |
-                     Q(num_of_seats__icontains=query) |
-                     Q(cost_per_day__icontains=query)
+                     Q(car_type__icontains = query) |
+                     Q(cost_opt__icontains=query) |
+                     Q(cost__icontains=query)
                             )
 
     # pagination
@@ -105,7 +105,7 @@ def car_update(request, id=None):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
+        return HttpResponseRedirect("/admincarlist/")
     context = {
         "form": form,
         "title": "Update Car"
@@ -156,17 +156,22 @@ def location_list(request):
     return render(request, 'location.html', context)
 
 def loc_edit(request,id=None):
-    return render(request, 'location.html', context)
+    detail = get_object_or_404(Location, id=id)
+    form = LocationForm(request.POST or None, instance=detail)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+        "form": form,
+        "title": "Edit Location"
+    }
+    return render(request, 'addLocation.html', context)
 
 def loc_delete(request,id=None):
     query = get_object_or_404(Location,id = id)
     query.delete()
-
-    location = Location.objects.all()
-    context = {
-        'location': location,
-    }
-    return render(request, 'admin_index.html', context)
+    return HttpResponseRedirect("/location")
 
 def loc_detail(request):
     return render(request, 'admin_index.html', context)
@@ -380,8 +385,8 @@ def admin_car_list(request):
         car = car.filter(
             Q(make__icontains=query) |
             Q(car_type__icontains=query) |
-            Q(num_of_seats__icontains=query) |
-            Q(cost_per_day__icontains=query)
+            Q(cost_opt__icontains=query) |
+            Q(cost__icontains=query)
         )
 
     # pagination

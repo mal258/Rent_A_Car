@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^location/', views.location_list, name = "location_list"),
     url(r'^addLocation/$', views.location, name = "location"),
     url(r'^(?P<id>\d+)/location/$', views.loc_detail, name = "loc_detail"),
-    url(r'^(?P<id>\d+)/edit/$', views.loc_edit, name = "loc_edit"),
-    url(r'^(?P<id>\d+)/delete/$', views.loc_delete, name = "loc_delete"),
+    url(r'^(?P<id>\d+)/editloc/$', views.loc_edit, name = "loc_edit"),
+    url(r'^(?P<id>\d+)/deleteloc/$', views.loc_delete, name = "loc_delete"),
 
 ]

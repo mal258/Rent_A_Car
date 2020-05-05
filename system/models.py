@@ -54,6 +54,9 @@ class Location(models.Model):
     def __str__(self):
         return self.loc_name
 
+    def get_absolute_url(self):
+        return "/location/%s/" % (self.id)
+
 
 class Car(models.Model):
     image = models.ImageField(upload_to=uploaded_location, null=True, blank=True)

@@ -18,8 +18,8 @@ from django.views.generic import ListView
 def car_loc_search1(request):
     query = request.GET['q']
     print(query)
-    wordList = re.compile('([^,\s]+)').findall(query)
-    print(wordList[0])
+    # wordList = re.compile('([^,\s]+)').findall(query)
+    # print(wordList[0])
     inventory = Car.objects.filter(zipcode__icontains=query)
     #print(inventory.depot)
     print(inventory)
