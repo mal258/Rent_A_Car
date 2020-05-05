@@ -103,7 +103,7 @@ def sf_time():
 class CreateBookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ('vehicle_type', 'start_time', 'end_time')
+        fields = ('start_time', 'end_time')
         exclude = ('user',)
 
     depot_list = Location.objects.depots()
@@ -113,9 +113,9 @@ class CreateBookingForm(forms.ModelForm):
 
     # depot = forms.ChoiceField(choices=[(depot.loc_name, depot.loc_name) for depot in depot_list])
     # vehicle_type = forms.ChoiceField(choices=[(vehicle_type.car_type, vehicle_type.car_type) for vehicle_type in vehicle_list])
-    depot = forms.ChoiceField(choices=DEPOTS)
+    #depot = forms.ChoiceField(choices=DEPOTS)
     #depot = forms.
-    vehicle_type = forms.ChoiceField(choices=CAR_TYPE)
+    #vehicle_type = forms.ChoiceField(choices=CAR_TYPE)
     start_time = forms.DateTimeField()
     end_time = forms.DateTimeField()
 
