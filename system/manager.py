@@ -90,14 +90,14 @@ class BookingManager(models.Manager):
         if cost_opt == "PER-HOUR":
             amount = cost * hours
         elif cost_opt == "1-5H":
-            hours = hours/5
-            amount = cost * hours
+            h = hours/5
+            amount = cost * h
         elif cost_opt == "6-10H":
-            hours = hours/10
-            amount = hours * cost
+            h = hours/10
+            amount = h * cost
         else:
-            hours = hours/24
-            amount = hours * cost
+            h = hours/24
+            amount = h * cost
 
         print(cost_opt)
         print(amount)
