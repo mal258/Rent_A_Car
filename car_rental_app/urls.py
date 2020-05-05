@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^$', admin_car_list, name='adminIndex'),
 
-
+    url(r'^(?P<id>\d+)/$', car_detail_admin, name = "car_detail_admin"),
     url(r'^listOrder/$', order_list, name = "order_list"),
     #url(r'^(?P<id>\d+)/editOrder/$', order_update, name = "order_edit"),
     #shreyus

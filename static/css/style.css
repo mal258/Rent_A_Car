@@ -76,6 +76,6 @@ body{
 }
 
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
-  background-color: #b30000 !important;
+  background-color: #337ab7 !important;
 }
 /*theme*/

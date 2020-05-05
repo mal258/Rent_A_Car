@@ -20,6 +20,7 @@ urlpatterns = [
 
 
     url(r'^(?P<id>\d+)/$', views.car_detail, name = "car_detail"),
+
     #url(r'^detail/(?P<id>\d+)/$', views.order_detail, name = "order_detail"),
     #Shreyus
     url(r'^detail/(?P<id>\d+)/$', booking_detail, name = "booking_detail"),

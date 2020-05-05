@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/base_admin.html' %}
 {% block title %} Detail of {{detail.make}} {% endblock %}
 
 {% block body %}
@@ -22,11 +22,10 @@
   <a href="" class="list-group-item"><strong>Cost Type   : </strong>{{detail.cost_opt}}</a>
   <a href="" class="list-group-item"><strong>Cost   : </strong>${{detail.cost}}</a>
   <a href="" class="list-group-item"><strong>Location   : </strong>{{detail.depot}}</a>
-
+  
   <div class="pull-right">
-    <a href="{% url 'usersearch' %}"><button type="button" class="btn btn-danger"> Back</button></a>
-    <a href="{% url 'order_create' %}"><button type="button" class="btn btn-primary"></> Book</button></a>
-    
+    <a href="{% url 'admin_car_list' %}"><button type="button" class="btn btn-danger"> Back</button></a>
+
 <hr>
   </div>
 
