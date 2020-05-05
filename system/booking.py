@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 import pytz
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 
 from .models import *
 from .forms import *
@@ -36,7 +37,8 @@ def create_booking(request):
     }
     return render(request, 'order_create.html', context)
 
-def create_booking1(request):
+def create_booking1(request, id=None):
+
     form = CreateBookingForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -59,14 +61,22 @@ def booking_detail(request, id=None):
 #def create_booking(request, customer_id):
 @login_required
 @csrf_exempt
-def create_booking2(request):
+def create_booking2(request, id=None):
+    query = get_object_or_404(Car,id = id)
+    #query = Car.objects.get(make=)
+    print(query.car_type)
+
     if request.method == 'POST':
         form = CreateBookingForm(request.POST)
+        form.depot = query.depot
         if form.is_valid():
             customer = request.user
             customer.save()
-            depot = form.cleaned_data['depot']
-            vehicle_type = form.cleaned_data['vehicle_type']
+
+            #depot = form.cleaned_data['depot']
+            #vehicle_type = form.cleaned_data['vehicle_type']
+            depot = query.depot
+            vehicle_type = query.car_type
             start_time = form.cleaned_data['start_time']
             end_time = form.cleaned_data['end_time']
 
@@ -99,7 +109,7 @@ def create_booking2(request):
             v_status = v.booking_status
             print(v_status)
             b = Booking.objects.create_booking(customer, v, d[0], start_time, end_time)
-            if b == 1:
+            if b == 1 or b == 0:
                 print("Please book for less than 72 hours")
                 return HttpResponseRedirect("/car/usersearch")
             print("this is b")
@@ -230,15 +240,16 @@ def cust_booking (request):
     #print(c_book)
     return render(request, 'User/mybooking.html', context)
 
-def modify_subscription(request, id=None):
-    detail = get_object_or_404(UserDetails,id=id)
-    #detail = UserDetails.objects.filter(first_name=request.user)
-    print("inside modify")
-    print(detail.sub_end)
+def extend_subscription(request, id=None):
+    sf_time()
+    detail = get_object_or_404(UserDetails, first_name=request.user)
+    detail.sub_start = timezone.localtime(timezone.now())
+    detail.sub_end = timezone.localtime(timezone.now()) + relativedelta(months=+6)
+    detail.save()
     context = {
         "detail": detail
     }
-    return render(request, 'car_detail.html', context)
+    return render(request, 'User/extendsub.html', context)
 
 def modify_profile(request, id=None):
     sf_time()

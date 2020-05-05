@@ -29,16 +29,16 @@ urlpatterns = [
     #shreyus
     url(r'^(?P<id>\d+)/deleteOrder/$', delete_booking, name = "delete_booking"),
     #url(r'^subextend/$', cust_booking, name = "contact"),
-    url(r'^(?P<id>\d+)/modify/$', modify_subscription, name = "modify_subscription"),
+    url(r'^modify/$', extend_subscription, name = "extend_subscription"),
     #shreyus
-    url(r'^contact/$', cust_booking, name = "contact"),
+    url(r'^booking/$', cust_booking, name = "contact"),
     url(r'^(?P<id>\d+)/returnveh/$', return_vehicle, name = "return_vehicle"),
     url(r'^newcar/$', views.newcar, name = "newcar"),
     url(r'^car/usersearch/$', user_car_search, name = "usersearch"),
     #shreyus
     url(r'^car/acar/$', available_cars, name = "available_cars"),
     #url(r'^(?P<customer_id>[0-9]+)/createOrder/$', create_booking2, name = "order_create"),
-    url(r'^createOrder/$', create_booking2, name = "order_create"),
+    url(r'^(?P<id>\d+)/createOrder/$', create_booking2, name = "order_create"),
     url(r'^(?P<id>\d+)/like/$', views.like_update, name = "like"),
     url(r'^popularcar/$', views.popular_car, name = "popularcar"),
     url(r'^location/', views.location_list, name = "location_list"),

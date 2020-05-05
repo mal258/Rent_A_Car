@@ -13,7 +13,7 @@
  <!--       <li><a href="{% url 'customercreated' %}"><span class="glyphicon glyphicon-align-justify"></span> Fill Details</a></li> -->
           <li><a href="{% url 'details' %}"><span class="glyphicon glyphicon-align-justify"></span> Account Summary </a></li>
   <!--        <li><a href="{% url 'startsubscribe' %}"><span class="glyphicon glyphicon-align-justify"></span> Subscriptions </a></li> -->
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-share"></span> Logout {{request.user.username}}</a></li>
       </ul>
           {% endblock %}
 {% block body %}
@@ -24,7 +24,7 @@
       {{form|crispy}}
         <div class="pull-right">
             <input type="submit" class="btn btn-primary" value="Save"/>
-            <a href="{% url 'modify_subscription' id%}" class="btn btn-primary" role="button">Extend</a>
+            <a href="{% url 'extend_subscription' %}" class="btn btn-primary" role="button">Extend</a>
         </div>
 
 </form>
