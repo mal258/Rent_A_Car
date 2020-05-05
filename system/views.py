@@ -474,18 +474,11 @@ from django.shortcuts import render
 #         return UserDetails.objects.filter(user=user)
 
 def PersonListView(request):
-    #expiry_date = UserDetails.objects.get("start_date")
-    #print(expiry_date)
-    #User = get_user_model()
+
     print(request.user)
     user_list = UserDetails.objects.filter(first_name=request.user)
-    #profile = User.objects.all()
+    
     print(user_list)
-    # sub_list = StartSubscribe.objects.filter(first_name__icontains=request.user)
-    # e = StartSubscribe.objects.get(id=1)
-    # e.start_date += datetime.timedelta(days=180)
-    # e.save()
-    #print(sub_list.values("start_date")+datetime.timedelta(days=180))
     return render(request, 'user/userprofile.html', {'obj1': user_list})
 
 @login_required

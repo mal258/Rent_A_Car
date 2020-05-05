@@ -21,7 +21,7 @@
             <p>
 
                 <a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Detail</a>
-                <a href="{% url 'order_create' %}" class="btn btn-danger" role="button">Book</a></p>
+                <a href="{% url 'order_create' ob.id %}" class="btn btn-danger" role="button">Book</a></p>
               </div>
           </div>
         </div>
@@ -32,10 +32,6 @@
     </div>
     </div>
 
-<form action="{% url 'car_loc_search1' %}" method="get">
-  <input name="q" type="text" placeholder="Search...">
-    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
-</form>
 
     <nav>
   <ul class="pager">

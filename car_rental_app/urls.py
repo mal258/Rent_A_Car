@@ -67,7 +67,7 @@ urlpatterns = [
     url(r'^adminhome/profile/', profile, name="adminpage"),
     url(r'^cartable/$', CarListView.as_view(), name = "cartable"),
     url(r'details/$', PersonListView, name = "details"),
-
+    url(r'^(?P<id>\d+)/pay/$', pay_booking, name = "pay_booking"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
