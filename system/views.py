@@ -27,6 +27,8 @@ from django.contrib.auth import (
     models,
 )
 
+from django.contrib.auth.decorators import login_required
+
 User = get_user_model()
 #from .tables import PersonTable
 
@@ -74,6 +76,13 @@ def car_detail(request, id=None):
         "detail": detail
     }
     return render(request, 'car_detail.html', context)
+
+def car_detail_admin(request, id=None):
+    detail = get_object_or_404(Car,id=id)
+    context = {
+        "detail": detail
+    }
+    return render(request, 'admin/car_detail_admin.html', context)
 
 def car_created(request):
     form = CarForm(request.POST or None, request.FILES or None)
@@ -361,6 +370,9 @@ def contact(request):
 
 #-----------------Admin Section-----------------
 
+
+
+@login_required
 def admin_car_list(request):
     car = Car.objects.order_by('-id')
 
