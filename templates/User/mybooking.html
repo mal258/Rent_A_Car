@@ -15,6 +15,7 @@
     <td><strong>From</strong></td>
     <td><strong>To</strong></td>
     <td><strong>Hours</strong></td>
+    <td><strong>Cost</strong></td>
     <td><strong>Action</strong></td>
   </tr>
 
@@ -25,6 +26,7 @@
     <td>{{ob.start_time}}</td>
     <td>{{ob.end_time}}</td>
     <td>{{ob.hours}}</td>
+    <td>{{ob.user_tran}}</td>
     <td>
 
          <a href="{% url 'update_booking' ob.id %}"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></button></a>

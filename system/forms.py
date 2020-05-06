@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe, Booking
+from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe, Booking, Comment
 from django.contrib.auth import get_user_model
 from .manager import *
 from .choices import DEPOTS, CAR_TYPE
@@ -119,6 +119,9 @@ class CreateBookingForm(forms.ModelForm):
     start_time = forms.DateTimeField()
     end_time = forms.DateTimeField()
 
-
-
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comments',)
+        #comments = forms.CharField(required=False)
 

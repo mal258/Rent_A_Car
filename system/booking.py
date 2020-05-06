@@ -14,6 +14,8 @@ from .models import *
 from .forms import *
 from .manager import *
 
+sf =  pytz.timezone("America/Los_Angeles")
+
 def sf_time():
     sf =  pytz.timezone("America/Los_Angeles")
     timezone.activate(sf)
@@ -62,7 +64,7 @@ def booking_detail(request, id=None):
 @login_required
 @csrf_exempt
 def create_booking2(request, id=None):
-    sf_time()
+    #sf_time()
     query = get_object_or_404(Car,id = id)
     valid = "true"
     #query = Car.objects.get(make=)
@@ -133,42 +135,54 @@ def create_booking2(request, id=None):
     return render(request, 'order_create.html', {"form":form, "query":query,"valid":valid})
 
 def delete_booking(request,id=None):
+    c_charges = 0
     query = get_object_or_404(Booking,id = id)
     customer = request.user
     sf_time()
     t_start = query.start_time
+    #t_start = t_start - relativedelta(hours=7)
+    print("t_start", t_start)
     now = timezone.localtime(timezone.now())
-    print(now)
+
     td = t_start - now
     days, seconds = td.days, td.seconds
     hours = days * 24 + seconds // 3600
     print(hours)
-    hours = hours*60
-    if (hours < 60):
+    hours_min = hours*60
+    if (hours_min < 60):
         print("deduct the amount")
+        c_charges = query.user_tran
     else:
         print("amount refunded")
     v = query.vehicle
     Car.objects.update_status(v)
     query.delete()
-    return HttpResponseRedirect("/car/usersearch/")
+    return render(request, 'User/cancelbooking.html',{'c_charges':c_charges})
 
 def return_vehicle(request, id=None):
     query = get_object_or_404(Booking, id=id)
+    car_det = get_object_or_404(Car, make=query.vehicle)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    print(form)
     sf_time()
     t_end = query.end_time
+    t_end = t_end - relativedelta(hours=7)
+    print(t_end)
     now = timezone.localtime(timezone.now())
+    print(now)
+    late_charges = 0
     if (now > t_end):
-        td = now - t_end
-        days, seconds = td.days, td.seconds
-        hours = days * 24 + seconds // 3600
-        late_charges = hours * 5
+        # td = now - t_end
+        # days, seconds = td.days, td.seconds
+        # hours = days * 24 + seconds // 3600
+        late_charges = car_det.late_fee
         print("late charge of %d amount is deducted from account", late_charges)
     v = query.vehicle
     Car.objects.update_status(v)
     query.delete()
-    #return HttpResponseRedirect("/car/usersearch/")
-    return render(request, 'User/return_car.html')
+    return render(request, 'User/return_car.html',{'form':form,'late_charges':late_charges})
 
 def update_booking(request, id=None):
     detail = get_object_or_404(Booking, id=id)
@@ -286,3 +300,10 @@ def pay_booking(request, id=None):
     detail = get_object_or_404(Booking, id=id)
 
     return render(request, 'User/pay_booking.html', {"detail":detail})
+
+def comments(request):
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        return redirect("/car/usersearch/")
+
+    return render(request, "User/availablecars.html")

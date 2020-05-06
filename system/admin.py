@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe, User, Booking
+from .models import Car, Order, PrivateMsg, Location, UserDetails, StartSubscribe, User, Booking, Comment
 # Register your models here.
 
 class CarAdmin(admin.ModelAdmin):
@@ -22,6 +22,9 @@ class StartSubscriptionAdmin(admin.ModelAdmin):
 class BookingAdmin(admin.ModelAdmin):
     list_display = ("customer", "vehicle", "depot", "start_time", "end_time","status", "user_tran", "hours",)
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("comment",)
+
 admin.site.register(Car, CarAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(PrivateMsg, PrivateMsgAdmin)
@@ -29,3 +32,4 @@ admin.site.register(Location, LocationAdmin)
 admin.site.register(UserDetails, CustomerAdmin)
 admin.site.register(StartSubscribe,StartSubscriptionAdmin)
 admin.site.register(Booking,BookingAdmin)
+admin.site.register(Comment)

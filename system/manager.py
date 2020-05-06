@@ -1,4 +1,5 @@
 from django.db import models
+#from .booking import sf_time
 
 from django.contrib.auth.models import UserManager
 
@@ -75,6 +76,7 @@ class BookingQuerySet(models.QuerySet):
 
 class BookingManager(models.Manager):
     def create_booking(self, customer, vehicle, depot, start_time, end_time):
+        #sf_time()
         if start_time > end_time:
             return 0
         td = end_time - start_time

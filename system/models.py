@@ -174,3 +174,9 @@ class Transaction(models.Model):
 
     def __str__(self):
         return "{}\n{}\n{}\n{}\n{}".format(self.user_account, self.company_account)
+
+class Comment(models.Model):
+    comments = models.TextField(verbose_name='')
+
+    def __str__(self):
+        return self.comments
