@@ -69,6 +69,7 @@ class CarListView(SingleTableView):
 
 def user_car_search(request):
     a = UserDetails.objects.filter(first_name=request.user)
+    print("inside search")
     if not a:
         return redirect("/customercreated/")
     new = Car.objects.order_by('-id')
@@ -78,11 +79,16 @@ def user_car_search(request):
     #print(query)
     if query:
         new = new.filter(
-            Q(make__icontains=query) |
-            Q(car_type__icontains=query) |
-            Q(vehicle_cond__icontains=query) |
-            Q(cost__icontains=query)
+            Q(make__icontains=query)
+
         )
+
+    query_loc = request.GET.get('p')
+
+    if query_loc:
+         new = new.filter(
+             Q(zipcode__icontains=query_loc)
+         )
 
     # pagination
     paginator = Paginator(new, 12)  # Show 15 contacts per page
