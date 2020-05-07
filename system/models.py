@@ -59,7 +59,8 @@ class Location(models.Model):
 
 
 class Car(models.Model):
-    image = models.ImageField(upload_to=uploaded_location, null=True, blank=True)
+    #image = models.ImageField(upload_to=uploaded_location, null=True, blank=True)
+    image = models.URLField()
     make = models.CharField(max_length=100)
     car_type = models.CharField(max_length=50, choices=CAR_TYPE)
     year = models.CharField(max_length=4)

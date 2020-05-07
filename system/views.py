@@ -190,7 +190,8 @@ def car_delete(request,id=None):
 
 def customer_created(request):
     a = UserDetails.objects.filter(first_name=request.user)
-    user = get_object_or_404(User,first_name=request.user)
+    user = get_object_or_404(User, first_name=request.user)
+
     cuser= get_user_model()
     print("cuser")
     print(cuser.first_name)
@@ -202,7 +203,7 @@ def customer_created(request):
         if form.is_valid():
             instance = form.save(commit=False)
             #instance.save()
-            instance.acc = 400
+            instance.acc = 200
             instance.first_name=user
             instance.last_name = user.last_name
             instance.sub_start = timezone.localtime(timezone.now())

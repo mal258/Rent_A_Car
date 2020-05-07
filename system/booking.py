@@ -270,8 +270,10 @@ def cust_booking (request):
 def extend_subscription(request, id=None):
     sf_time()
     detail = get_object_or_404(UserDetails, first_name=request.user)
-    detail.sub_start = timezone.localtime(timezone.now())
-    detail.sub_end = timezone.localtime(timezone.now()) + relativedelta(months=+6)
+    #detail.sub_start = timezone.localtime(timezone.now())
+    temp = detail.sub_end
+    detail.sub_end = temp + relativedelta(months=+6)
+    detail.acc = detail.acc + 200
     detail.save()
     context = {
         "detail": detail
