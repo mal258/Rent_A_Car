@@ -110,8 +110,8 @@ class BookingManager(models.Manager):
         except:
             return -2
 
-        customer.last_name = "{}".format(int(customer.last_name) - hours)
-        customer.save()
+        #customer.last_name = "{}".format(int(customer.last_name) - hours)
+        #customer.save()
         vehicle.booking_status = 'booked'
         vehicle.save()
         return self.create(customer=customer, vehicle=vehicle, depot=depot, start_time=start_time, end_time=end_time,\
@@ -139,5 +139,5 @@ class BookingManager(models.Manager):
         hours = days * 24 + seconds // 3600
 
         customer.last_name = "{}".format(int(customer.last_name) + hours)
-        customer.save()
+        #customer.save()
         booking.delete()
