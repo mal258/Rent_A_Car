@@ -386,7 +386,6 @@ def contact(request):
 #-----------------Admin Section-----------------
 
 
-
 @login_required
 def admin_car_list(request):
     car = Car.objects.order_by('-id')
@@ -495,7 +494,7 @@ def PersonListView(request):
     user_list = UserDetails.objects.filter(first_name=request.user)
     
     print(user_list)
-    return render(request, 'user/userprofile.html', {'obj1': user_list})
+    return render(request, 'User/userprofile.html', {'obj1': user_list})
 
 @login_required
 def profile(request):
