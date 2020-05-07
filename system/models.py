@@ -44,7 +44,7 @@ class PrivateMsg(models.Model):
 
 # shreyus
 class Location(models.Model):
-    loc_zip = models.IntegerField()
+    loc_zip = models.CharField(max_length=5)
     loc_name = models.CharField(max_length=20, choices = DEPOTS)
     address = models.TextField()
     vehicle_cap = models.IntegerField(default=0)
@@ -62,17 +62,17 @@ class Car(models.Model):
     image = models.ImageField(upload_to=uploaded_location, null=True, blank=True)
     make = models.CharField(max_length=100)
     car_type = models.CharField(max_length=50, choices=CAR_TYPE)
-    year = models.CharField(max_length=50)
-    reg_tag = models.CharField(max_length=100)
+    year = models.CharField(max_length=4)
+    reg_tag = models.CharField(max_length=10)
     cur_milage = models.IntegerField()
     last_serv = models.IntegerField()
     cost_opt = models.CharField(max_length=50, choices=COST_OPT)
     cost = models.IntegerField(default=0)
     depot = models.ForeignKey(Location, on_delete=models.PROTECT, related_name='vehicle')
-    zipcode = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=5)
     late_fee = models.IntegerField(default=0)
     booking_status = models.CharField(max_length=50, default='available')
-    subscription_charge = models.IntegerField(default=0)
+    subscription_charge = models.IntegerField(default=200)
 
     class vehicle(models.TextChoices):
         Good = 'Good'
@@ -92,16 +92,16 @@ class Car(models.Model):
 class UserDetails(models.Model):
     first_name = models.OneToOneField(User, on_delete=models.CASCADE)
     last_name = models.CharField(max_length=30)
-    mobileno = models.IntegerField()
+    mobileno = models.CharField(max_length=10)
     birthdate = models.DateField()
     address = models.CharField(max_length=30)
     license_number = models.CharField(max_length=10)
-    license_place = models.CharField(max_length=30)
+    license_place = models.CharField(max_length=10)
     payment_type = models.CharField(max_length=10)
-    credit_card_number = models.IntegerField()
+    credit_card_number = models.CharField(max_length=19)
     credit_card_name = models.CharField(max_length=30)
     expiry_date = models.DateField()
-    cvv = models.IntegerField()
+    cvv = models.CharField(max_length=4)
     acc = models.IntegerField(default=0)
     sub_start = models.DateTimeField(default=0)
     sub_end = models.DateTimeField(default=0)
@@ -124,12 +124,6 @@ class Customer(models.Model):
     def __str__(self):
         return str(self.user)
 
-#
-# # @receiver(post_save, sender=User)
-# # def update_user_profile(sender, instance, created, **kwargs):
-# #     if created:
-# #         Customer.objects.create(user=instance)
-# #     instance.profile.save()
 
 
 class StartSubscribe(models.Model):

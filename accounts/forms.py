@@ -39,29 +39,3 @@ class UserRegisterForm(forms.ModelForm):
             "last_name",
       ]
 
-# class CustomerForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = Customer
-#         fields = ('mobileno','birthdate', 'address','license_number','license_place')
-
-
-# class SignUpForm(forms.ModelForm):
-#
-#     first_name = forms.CharField(max_length=256)
-#     last_name = forms.CharField(max_length=256)
-#     email = forms.EmailField()
-#     mobileno = forms.IntegerField()
-#     birthdate = forms.DateField()
-#     address = forms.CharField(max_length=30)
-#     license_number = forms.CharField(max_length=10)
-#     license_place = forms.CharField(max_length=30)
-#
-#
-#     class Meta:
-#         model = Customer
-#         fields = '__all__'
-#
-#     def __init__(self, *args, **kwargs):
-#         super(SignUpForm, self).__init__(*args, **kwargs)
-
