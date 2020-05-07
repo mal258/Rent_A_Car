@@ -190,20 +190,31 @@ def car_delete(request,id=None):
 
 def customer_created(request):
     a = UserDetails.objects.filter(first_name=request.user)
+    user = get_object_or_404(User,first_name=request.user)
+    cuser= get_user_model()
+    print("cuser")
+    print(cuser.first_name)
+    print("user")
+    print(user.first_name)
+
     if not a:
         form = UserDetail(request.POST or None)
         if form.is_valid():
             instance = form.save(commit=False)
             #instance.save()
             instance.acc = 400
+            instance.first_name=user
+            instance.last_name = user.last_name
             instance.sub_start = timezone.localtime(timezone.now())
             instance.sub_end = timezone.localtime(timezone.now()) + relativedelta(months=+6)
             instance.save()
+
             return HttpResponseRedirect("/car/usersearch/")
 
         context = {
             "form": form,
-            "title": "Enter Details and Subscribe"
+            "title": "Enter Details and Subscribe",
+            "user":user
         }
         return render(request, 'customer_details.html', context)
     return HttpResponseRedirect("/details/")

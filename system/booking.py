@@ -148,16 +148,20 @@ def delete_booking(request,id=None):
     days, seconds = td.days, td.seconds
     hours = days * 24 + seconds // 3600
     print(hours)
+
     hours_min = hours*60
     if (hours_min < 60):
         print("deduct the amount")
-        c_charges = query.user_tran
+        c_charges = 0.1*(query.user_tran)
+
     else:
         print("amount refunded")
+
     v = query.vehicle
     Car.objects.update_status(v)
     query.delete()
-    return render(request, 'User/cancelbooking.html',{'c_charges':c_charges})
+    r_charges = query.user_tran-c_charges
+    return render(request, 'User/cancelbooking.html',{'c_charges':c_charges,'r_charges':r_charges})
 
 def return_vehicle(request, id=None):
     query = get_object_or_404(Booking, id=id)

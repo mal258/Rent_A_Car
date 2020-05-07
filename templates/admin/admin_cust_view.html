@@ -13,14 +13,7 @@
   <div class="panel-heading"><strong><span class="glyphicon glyphicon-list"></span> Customer List</strong> </div>
     <div class="panel-body">
     <strong class="navbar-form navbar-left" style="color: #5f5f5f;"><span class="glyphicon glyphicon-cog"></span> 25 Order Display Per Page </strong>
-    {% block search_box %}
-      <form method="GET" class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Order Search" value="{{request.GET.q}}" name="q">
-        </div>
-        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search</button>
-      </form>
-      {% endblock %}
+
 
   <!-- Table -->
   <table class="table table-bordered table-striped table-hover">

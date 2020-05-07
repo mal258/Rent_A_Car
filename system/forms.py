@@ -54,11 +54,10 @@ class LocationForm(forms.ModelForm):
 
 
 class UserDetail(forms.ModelForm):
+
     class Meta:
         model = UserDetails
         fields = [
-            "first_name",
-            "last_name",
             "mobileno",
             "birthdate",
             "address",
@@ -70,6 +69,8 @@ class UserDetail(forms.ModelForm):
             "expiry_date",
             "cvv",
         ]
+
+
 
 
 class StartSubcription(forms.ModelForm):
@@ -106,9 +107,9 @@ class CreateBookingForm(forms.ModelForm):
         fields = ('start_time', 'end_time')
         exclude = ('user',)
 
-    depot_list = Location.objects.depots()
-    vehicle_list = Car.objects.cars()
-    print(vehicle_list)
+  #  depot_list = Location.objects.depots()
+  # vehicle_list = Car.objects.cars()
+  #  print(vehicle_list)
     sf_time()
 
     # depot = forms.ChoiceField(choices=[(depot.loc_name, depot.loc_name) for depot in depot_list])

@@ -12,7 +12,11 @@
     <h1>{{ title }}</h1><hr>
 
     <form method="POST" action="">{% csrf_token %}
-      {{form|crispy}}
+        <div  class="list-group-item"><strong>First Name: {{user.first_name}}</strong></div>
+        <div  class="list-group-item"><strong>Last Name   :{{user.last_name}}</strong></div>
+
+        {{form|crispy}}
+        <div></div>
         <div class="pull-right">
             <input type="submit" class="btn btn-primary" value="Register"/>
         </div>
